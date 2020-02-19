@@ -156,18 +156,12 @@
 <p><img src="/../img/image-20200220001636696.png" alt="image-20200220001636696"></p>
 <p>其中<code>CONFIG_PLATFORM_ARM_Exynos4412=y</code>是我们新添加的设备。</p>
 <p>​        在1690行附近加入一段判断语句：</p>
-<p><code>ifeq ($(CONFIG_PLATFORM_ARM_Exynos4412), y)                                 
-EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN                                  
- ARCH := arm                                                 
-CROSS_COMPILE := arm-none-linux-gnueabi-                                  
-KVER:=3.5.0                                                 
-KSRC :=/home/gukki/HostFiles/A9/SRC/kernel/linux-3.5.0-rc6/                         
-MODULE_NAME :=wlan                                             
-endif</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ifeq ($(CONFIG_PLATFORM_ARM_Exynos4412), y)                                   </span><br><span class="line">EXTRA_CFLAGS += -DCONFIG_LITTLE_ENDIAN                                  </span><br><span class="line"> ARCH := arm                                                 </span><br><span class="line">CROSS_COMPILE := arm-none-linux-gnueabi-                                  </span><br><span class="line">KVER:=3.5.0                                                 </span><br><span class="line">KSRC :=/home/gukki/HostFiles/A9/SRC/kernel/linux-3.5.0-rc6/                         </span><br><span class="line">MODULE_NAME :=wlan                                             </span><br><span class="line">endif</span><br></pre></td></tr></table></figure>
+
 <p>​        注意<code>KVER</code>是你的内核版本号，<code>KSRC</code>是你的交叉编译好的内核目录。</p>
 <p>​        保存退出之后，直接<code>make</code>即可。生成的<code>wlan.ko</code>可通过minicom进行传输到开发板上，开发板上使用<code>insmod wlan.ko</code>来安装驱动。</p>
 <p>​        驱动安装完成之后使用<code>ifconfig -a</code>来进行查看自己的无线网卡的名字，并且使用<code>ifconfig 无线网卡名字 up</code>来进行启用网卡。</p>
-<p>​        驱动完成安装之后，运行<code>iwconfig</code>i应该如下所示：</p>
+<p>​        驱动完成安装之后，运行<code>iwconfig</code>应该如下所示：</p>
 <p><img src="/../img/image-20200220011149442.png" alt="image-20200220011149442"></p>
 <hr>
 <p>​        驱动安装完成之后，我发现这模块只能连接开放的wifi，进过一番google之后发现，我还需要移植一个名为<strong>wpa_supplicant</strong>   的软件来进行管理。而这个软件又依赖于<code>openssl</code>这个库，索性一次全部搞定吧。</p>

@@ -151,7 +151,7 @@
 <h4 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h4></li>
 </ol>
 <p>​        我仔细地查看开发板，发现开发板搭载的是<code>rtl8188eus</code>这个型号的无线模块。知道是什么型号的就好办了，直接开始移植吧。</p>
-<p>​        我先从google上找到了驱动源代码的github，clone下载之后，先对<code>Makefile</code>进行修改，由于它默认是i386平台，我们需要先对它进行屏蔽，并加入我们的设备。如下图所示：</p>
+<p>​        我先从google上找到了驱动源代码的<a href="https://github.com/quickreflex/rtl8188eus" target="_blank" rel="noopener">github</a>，clone下载之后，先对<code>Makefile</code>进行修改，由于它默认是i386平台，我们需要先对它进行屏蔽，并加入我们的设备。如下图所示：</p>
 <p><img src="/../img/image-20200220001655792.png" alt="image-20200220001655792"></p>
 <p><img src="/../img/image-20200220001636696.png" alt="image-20200220001636696"></p>
 <p>其中<code>CONFIG_PLATFORM_ARM_Exynos4412=y</code>是我们新添加的设备。</p>
@@ -164,7 +164,7 @@
 <p>​        驱动完成安装之后，运行<code>iwconfig</code>应该如下所示：</p>
 <p><img src="/../img/image-20200220011149442.png" alt="image-20200220011149442"></p>
 <hr>
-<p>​        驱动安装完成之后，我发现这模块只能连接开放的wifi，进过一番google之后发现，我还需要移植一个名为<strong>wpa_supplicant</strong>   的软件来进行管理。而这个软件又依赖于<code>openssl</code>这个库，索性一次全部搞定吧。</p>
+<p>​        驱动安装完成之后，我发现这模块只能连接开放的wifi，进过一番google之后发现，我还需要移植一个名为<a href="https://w1.fi/releases/wpa_supplicant-0.7.2.tar.gz" target="_blank" rel="noopener"><strong>wpa_supplicant</strong></a>   的软件来进行管理。而这个软件又依赖于<a href="https://ftp.openssl.org/source/old/0.9.x/openssl-0.9.8e.tar.gz" target="_blank" rel="noopener"><strong>openssl</strong></a>这个库，索性一次全部搞定吧。</p>
 <p>​        这里我的wpa版本是0.7.2,ssl版本是0.9.8.e。先从网上把他们下载下来。我将他们都解压到一个文件夹里。openssl的移植需要wpa提供的补丁文件。</p>
 <p>​        执行命令:</p>
 <p>​            <code>cp wpa_supplicant-0.7.2/patches/openssl-0.9.8e-tls-extensions.patch ./openssl-0.9.8e</code></p>

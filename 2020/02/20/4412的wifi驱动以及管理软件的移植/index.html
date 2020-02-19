@@ -128,7 +128,7 @@
     </div>
 
     <div class="post-meta">
-        <span class="attr">发布于：<span>2020-02-20 01:21:42</span></span>
+        <span class="attr">发布于：<span>2020-02-20 02:16:30</span></span>
         
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
@@ -143,8 +143,8 @@
 <h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><ol>
 <li><p>给的pdf上面的wifi模块的型号不对</p>
 <blockquote>
-<p>它给我的是<img src="/img/image-20200219235746812.PNG" alt="image-20200219235746812" style="zoom:33%;" />这个型号的驱动，实际上开发板上搭载的是</p>
-<p><img src="/img/image-20200219235946818.PNG" alt="image-20200219235946818" style="zoom: 80%;" />这个型号的驱动</p>
+<p>它给我的是<strong>rt8723bu</strong>这个型号的驱动，实际上开发板上搭载的是<img src="/../img/image-20200219235946818.png" alt="image-20200219235946818"></p>
+<p>这个型号的驱动</p>
 </blockquote>
 </li>
 <li><p>由于缺少<code>wpa_supplicant</code>这个管理软件，wifi无法连接到加密的网络</p>
@@ -152,8 +152,8 @@
 </ol>
 <p>​        我仔细地查看开发板，发现开发板搭载的是<code>rtl8188eus</code>这个型号的无线模块。知道是什么型号的就好办了，直接开始移植吧。</p>
 <p>​        我先从google上找到了驱动源代码的github，clone下载之后，先对<code>Makefile</code>进行修改，由于它默认是i386平台，我们需要先对它进行屏蔽，并加入我们的设备。如下图所示：</p>
-<p><img src="/img/image-20200220001655792.PNG" alt="image-20200220001655792"></p>
-<p><img src="/img/image-20200220001636696.PNG" alt="image-20200220001636696"></p>
+<p><img src="/../img/image-20200220001655792.png" alt="image-20200220001655792"></p>
+<p><img src="/../img/image-20200220001636696.png" alt="image-20200220001636696"></p>
 <p>其中<code>CONFIG_PLATFORM_ARM_Exynos4412=y</code>是我们新添加的设备。</p>
 <p>​        在1690行附近加入一段判断语句：</p>
 <p><code>ifeq ($(CONFIG_PLATFORM_ARM_Exynos4412), y)                                 
@@ -168,7 +168,7 @@ endif</code></p>
 <p>​        保存退出之后，直接<code>make</code>即可。生成的<code>wlan.ko</code>可通过minicom进行传输到开发板上，开发板上使用<code>insmod wlan.ko</code>来安装驱动。</p>
 <p>​        驱动安装完成之后使用<code>ifconfig -a</code>来进行查看自己的无线网卡的名字，并且使用<code>ifconfig 无线网卡名字 up</code>来进行启用网卡。</p>
 <p>​        驱动完成安装之后，运行<code>iwconfig</code>i应该如下所示：</p>
-<p><img src="/img/image-20200220011149442.PNG" alt="image-20200220011149442"><br><img src="/img/image-20200219235529857.png" alt="image-20200219235529857"><br><img src="1.png" alt="1"></p>
+<p><img src="/../img/image-20200220011149442.png" alt="image-20200220011149442"></p>
 <hr>
 <p>​        驱动安装完成之后，我发现这模块只能连接开放的wifi，进过一番google之后发现，我还需要移植一个名为<strong>wpa_supplicant</strong>   的软件来进行管理。而这个软件又依赖于<code>openssl</code>这个库，索性一次全部搞定吧。</p>
 <p>​        这里我的wpa版本是0.7.2,ssl版本是0.9.8.e。先从网上把他们下载下来。我将他们都解压到一个文件夹里。openssl的移植需要wpa提供的补丁文件。</p>

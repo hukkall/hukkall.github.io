@@ -171,14 +171,14 @@
 <p>​            <code>cd openssl-0.9.8e</code></p>
 <p>​            <code>patch -p1 &lt; openssl-0.9.8e-tls-extensions.patch</code></p>
 <p>​        创建一个干净的文件夹，我的路径是<code>/home/gukki/Cross_Code/Cross/openssl/</code>，在openssl-0.9.8目录里面运行<code>Configure</code>脚本来进行配置<code>Makefile</code>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`./Configure linux-elf-arm -DL_EDNIAN linux:'arm-none-linux-gnueabi-gcc' shared --prefix=/home/gukki/Cross_Code/Cross/openssl/ -lcrypto`</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./Configure linux-elf-arm -DL_EDNIAN linux:'arm-none-linux-gnueabi-gcc' shared --prefix=/home/gukki/Cross_Code/Cross/openssl/ -lcrypto</span><br></pre></td></tr></table></figure>
 
 <p>​        配置完成之后就可以<code>make &amp;&amp; make install</code>了。生成的动态库文件在openssl/lib里面。  </p>
 <p>​        接下来进行wpa的移植。  </p>
 <p>​        进入wpa的源代码目录，修改<code>Makefile</code>文件，注释掉第一和第三行，并将CC改为你的交叉编译器，</p>
-<p>在<br>    CFLAGS += -I../src<br>    CFLAGS += -I../src/utils<br>    下添加：<br>    CFLAGS += -I/home/gukki/Cross_Code/Cross/openssl/include/</p>
-<p>修改<br>    LIBS += -lssl<br>    为<br>    LIBS += -lssl -L/home/gukki/Cross_Code/Cross/openssl/lib/</p>
-<p>修改<br>    LIBS_p += -lcrypto<br>    为<br>    LIBS_p += -lcrypto -L/home/gukki/Cross_Code/Cross/openssl/lib/</p>
+<p>在<br>  <code>CFLAGS += -I../src</code><br>  <code>CFLAGS += -I../src/utils</code><br>    下添加：<br>  <code>CFLAGS += -I/home/gukki/Cross_Code/Cross/openssl/include/</code></p>
+<p>修改<br>   <code>LIBS += -lssl</code><br>    为<br>    <code>LIBS += -lssl -L/home/gukki/Cross_Code/Cross/openssl/lib/</code></p>
+<p>修改<br>   <code>LIBS_p += -lcrypto</code><br>    为<br> <code>LIBS_p += -lcrypto -L/home/gukki/Cross_Code/Cross/openssl/lib/</code></p>
 <p>​        保存并退出，将目录下面的<code>defconfig</code>复制为<code>.config</code>并执行<code>make</code></p>
 <p>​        编译完成之后，将目录下面的<code>wpa_supplicant</code>和<code>wpa_cli</code>文件拷贝到开发板的<code>/bin</code>目录下面。</p>
 <hr>

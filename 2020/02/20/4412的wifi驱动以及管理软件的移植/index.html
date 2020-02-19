@@ -148,9 +148,9 @@
 </blockquote>
 </li>
 <li><p>由于缺少<code>wpa_supplicant</code>这个管理软件，wifi无法连接到加密的网络</p>
-<h4 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h4></li>
+</li>
 </ol>
-<p>​        我仔细地查看开发板，发现开发板搭载的是<code>rtl8188eus</code>这个型号的无线模块。知道是什么型号的就好办了，直接开始移植吧。</p>
+<h4 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h4><p>​        我仔细地查看开发板，发现开发板搭载的是<code>rtl8188eus</code>这个型号的无线模块。知道是什么型号的就好办了，直接开始移植吧。</p>
 <p>​        我先从google上找到了驱动源代码的<a href="https://github.com/quickreflex/rtl8188eus" target="_blank" rel="noopener">github</a>，clone下载之后，先对<code>Makefile</code>进行修改，由于它默认是i386平台，我们需要先对它进行屏蔽，并加入我们的设备。如下图所示：</p>
 <p><img src="/../img/image-20200220001655792.png" alt="image-20200220001655792"></p>
 <p><img src="/../img/image-20200220001636696.png" alt="image-20200220001636696"></p>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="C/C++/C#">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Test - FouRod
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> doRuoF </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg" />
+        </div>
+        <div class="name">
+            <i>AaJal</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#思路"><span class="toc-text">思路</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#代码："><span class="toc-text">代码：</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> doRuoF </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Test
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-02-19 23:06:20</span></span>
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <h4 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。</span><br><span class="line"></span><br><span class="line">字符          数值</span><br><span class="line">I             <span class="number">1</span></span><br><span class="line">V             <span class="number">5</span></span><br><span class="line">X             <span class="number">10</span></span><br><span class="line">L             <span class="number">50</span></span><br><span class="line">C             <span class="number">100</span></span><br><span class="line">D             <span class="number">500</span></span><br><span class="line">M             <span class="number">1000</span></span><br><span class="line">例如， 罗马数字 <span class="number">2</span> 写做 II ，即为两个并列的 <span class="number">1</span>。<span class="number">12</span> 写做 XII ，即为 X + II 。 <span class="number">27</span> 写做  XXVII, 即为 XX + V + II 。</span><br><span class="line"></span><br><span class="line">通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 <span class="number">4</span> 不写做 IIII，而是 IV。数字 <span class="number">1</span> 在数字 <span class="number">5</span> 的左边，所表示的数等于大数 <span class="number">5</span> 减小数 <span class="number">1</span> 得到的数值 <span class="number">4</span> 。同样地，数字 <span class="number">9</span> 表示为 IX。这个特殊的规则只适用于以下六种情况：</span><br><span class="line"></span><br><span class="line">I 可以放在 V (<span class="number">5</span>) 和 X (<span class="number">10</span>) 的左边，来表示 <span class="number">4</span> 和 <span class="number">9</span>。</span><br><span class="line">X 可以放在 L (<span class="number">50</span>) 和 C (<span class="number">100</span>) 的左边，来表示 <span class="number">40</span> 和 <span class="number">90</span>。 </span><br><span class="line">C 可以放在 D (<span class="number">500</span>) 和 M (<span class="number">1000</span>) 的左边，来表示 <span class="number">400</span> 和 <span class="number">900</span>。</span><br><span class="line">给定一个整数，将其转为罗马数字。输入确保在 <span class="number">1</span> 到 <span class="number">3999</span> 的范围内。</span><br><span class="line"></span><br><span class="line">示例 <span class="number">1</span>:</span><br><span class="line"></span><br><span class="line">输入: <span class="number">3</span></span><br><span class="line">输出: <span class="string">"III"</span></span><br><span class="line">示例 <span class="number">2</span>:</span><br><span class="line"></span><br><span class="line">输入: <span class="number">4</span></span><br><span class="line">输出: <span class="string">"IV"</span></span><br><span class="line">示例 <span class="number">3</span>:</span><br><span class="line"></span><br><span class="line">输入: <span class="number">9</span></span><br><span class="line">输出: <span class="string">"IX"</span></span><br><span class="line">示例 <span class="number">4</span>:</span><br><span class="line"></span><br><span class="line">输入: <span class="number">58</span></span><br><span class="line">输出: <span class="string">"LVIII"</span></span><br><span class="line">解释: L = <span class="number">50</span>, V = <span class="number">5</span>, III = <span class="number">3.</span></span><br><span class="line">示例 <span class="number">5</span>:</span><br><span class="line"></span><br><span class="line">输入: <span class="number">1994</span></span><br><span class="line">输出: <span class="string">"MCMXCIV"</span></span><br><span class="line">解释: M = <span class="number">1000</span>, CM = <span class="number">900</span>, XC = <span class="number">90</span>, IV = <span class="number">4.</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>之前做这道题目的时候用了很复杂的方式，一堆一堆的分支条件语句，虽然速度还行，但是代码很不美观。</p>
+<p>这次采用贪心的方法，解这道题目一如生活中买东西一样：</p>
+<blockquote>
+<p>如果你需要支付380元给商家，并且你身上有各种面额的钞票。我们一般都会拿取最大面额的钞票给商家：<br>先点出三张100，再点出一张50，再各点出一张20和10。<br>因为这样选取的钞票最少，选取最方便。</p>
+</blockquote>
+<p>这道题也是如此，表示4的时候不是用4个”I”连起来，而是使用”IV”来表示。<br>所以我们可以将罗马数字的组合拿出来当作我们身上钞票的面额。每一次选择大小最接近源数字的罗马数字，将源数字减去选取的罗马数字对应的值。</p>
+<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="symbol">Solution</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="built_in">string</span> <span class="built_in">int</span>ToRoman(<span class="built_in">int</span> num)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">int</span> nums[]=&#123;<span class="number">1000</span>, <span class="number">900</span>, <span class="number">500</span>, <span class="number">400</span>, <span class="number">100</span>, <span class="number">90</span>, <span class="number">50</span>, <span class="number">40</span>, <span class="number">10</span>, <span class="number">9</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">			<span class="built_in">string</span> roman[]=&#123;<span class="string">"M"</span>, <span class="string">"CM"</span>, <span class="string">"D"</span>, <span class="string">"CD"</span>, <span class="string">"C"</span>, <span class="string">"XC"</span>, <span class="string">"L"</span>, <span class="string">"XL"</span>, <span class="string">"X"</span>, <span class="string">"IX"</span>, <span class="string">"V"</span>, <span class="string">"IV"</span>, <span class="string">"I"</span>&#125;;</span><br><span class="line">			<span class="built_in">string</span> res = <span class="string">""</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span>;i&lt;<span class="number">13</span>;i++)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="keyword">while</span>(num&gt;=nums[i])</span><br><span class="line">				&#123;</span><br><span class="line">					res+=roman[i];</span><br><span class="line">					num-=nums[i];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> res;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+        
+        <br />
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud" target="_blank" rel="noopener">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

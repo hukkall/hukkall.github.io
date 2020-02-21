@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="C/C++/C#">
-    <meta name="keyword"  content="">
+    <meta name="keyword" content>
     <link rel="shortcut icon" href="/img/favicon.ico">
 
     <title>
@@ -49,7 +49,7 @@
 <div class="nav" id="nav">
     <div class="avatar-name">
         <div class="avatar ">
-            <img src="/img/avatar.jpg" />
+            <img src="/img/avatar.jpg">
         </div>
         <div class="name">
             <i>AaJal</i>
@@ -57,25 +57,25 @@
     </div>
     <div class="contents" id="nav-content">
         <ul>
-            <li >
+            <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
                     <span>主页</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
                     <span>标签</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
                     <span>存档</span>
                 </a>
             </li>
-            <li >
+            <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
                     <span>关于</span>
@@ -103,7 +103,7 @@
     <div class="search-container">
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input"/>
+            <input id="search-input">
             <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
@@ -145,7 +145,7 @@
         </span>
         <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
-</span>
+
     </div>
     <div class="post-content ">
         <h4 id="平台"><a href="#平台" class="headerlink" title="平台"></a>平台</h4><ol>
@@ -163,7 +163,7 @@
 </li>
 </ol>
 <h4 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h4><p>​        我仔细地查看开发板，发现开发板搭载的是<code>rtl8188eus</code>这个型号的无线模块。知道是什么型号的就好办了，直接开始移植吧。</p>
-<p>​        我先从google上找到了驱动源代码的<a href="https://github.com/quickreflex/rtl8188eus" target="_blank" rel="noopener">github</a>，clone下载之后，先对<code>Makefile</code>进行修改，由于它默认是i386平台，我们需要先对它进行屏蔽，并加入我们的设备。如下图所示：</p>
+<p>​        我先从google上找到了驱动源代码的<a href="https://github.com/quickreflex/rtl8188eus" target="_blank" rel="external nofollow noopener noreferrer">github</a>，clone下载之后，先对<code>Makefile</code>进行修改，由于它默认是i386平台，我们需要先对它进行屏蔽，并加入我们的设备。如下图所示：</p>
 <p><img src="/../img/image-20200220001655792.png" alt="image-20200220001655792"></p>
 <p><img src="/../img/image-20200220001636696.png" alt="image-20200220001636696"></p>
 <p>其中<code>CONFIG_PLATFORM_ARM_Exynos4412=y</code>是我们新添加的设备。</p>
@@ -176,7 +176,7 @@
 <p>​        驱动完成安装之后，运行<code>iwconfig</code>应该如下所示：</p>
 <p><img src="/../img/image-20200220011149442.png" alt="image-20200220011149442"></p>
 <hr>
-<p>​        驱动安装完成之后，我发现这模块只能连接开放的wifi，进过一番google之后发现，我还需要移植一个名为<a href="https://w1.fi/releases/wpa_supplicant-0.7.2.tar.gz" target="_blank" rel="noopener"><strong>wpa_supplicant</strong></a>   的软件来进行管理。而这个软件又依赖于<a href="https://ftp.openssl.org/source/old/0.9.x/openssl-0.9.8e.tar.gz" target="_blank" rel="noopener"><strong>openssl</strong></a>这个库，索性一次全部搞定吧。</p>
+<p>​        驱动安装完成之后，我发现这模块只能连接开放的wifi，进过一番google之后发现，我还需要移植一个名为<a href="https://w1.fi/releases/wpa_supplicant-0.7.2.tar.gz" target="_blank" rel="external nofollow noopener noreferrer"><strong>wpa_supplicant</strong></a>   的软件来进行管理。而这个软件又依赖于<a href="https://ftp.openssl.org/source/old/0.9.x/openssl-0.9.8e.tar.gz" target="_blank" rel="external nofollow noopener noreferrer"><strong>openssl</strong></a>这个库，索性一次全部搞定吧。</p>
 <p>​        这里我的wpa版本是0.7.2,ssl版本是0.9.8.e。先从网上把他们下载下来。我将他们都解压到一个文件夹里。openssl的移植需要wpa提供的补丁文件。</p>
 <p>​        执行命令:</p>
 <p>​            <code>cp wpa_supplicant-0.7.2/patches/openssl-0.9.8e-tls-extensions.patch ./openssl-0.9.8e</code></p>
@@ -204,7 +204,7 @@
 <p>​        连接到之后需要自己更改ip地址和默认网关。具体操作请自行搜索。</p>
 
         
-        <br />
+        <br>
         <div id="comment-container">
         </div>
         <div id="disqus_thread"></div>
@@ -241,7 +241,7 @@
         <span id="busuanzi_container_site_uv">
             <span id="busuanzi_value_site_uv"></span>UV
         </span>
-        Created By <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud" target="_blank" rel="noopener">AirCloud</a></p>
+        Created By <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud" target="_blank" rel="external nofollow noopener noreferrer">AirCloud</a></p>
 </footer>
 
 

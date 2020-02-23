@@ -93,7 +93,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#要求"><span class="toc-text">要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#过程"><span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-新建仓库"><span class="toc-text">1. 新建仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-去Appveyor注册"><span class="toc-text">2. 去Appveyor注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-新建并加密一个Access-Token"><span class="toc-text">3. 新建并加密一个Access_Token</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-新建Appveyor的配置文件"><span class="toc-text">4. 新建Appveyor的配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-Appveyor的配置"><span class="toc-text">5. Appveyor的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-对Coding进行自动部署"><span class="toc-text">6. 对Coding进行自动部署</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#要求"><span class="toc-text">要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#过程"><span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-新建仓库"><span class="toc-text">1. 新建仓库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-去Appveyor注册"><span class="toc-text">2. 去Appveyor注册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-新建并加密一个Access-Token"><span class="toc-text">3. 新建并加密一个Access_Token</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-新建Appveyor的配置文件"><span class="toc-text">4. 新建Appveyor的配置文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-Appveyor的配置"><span class="toc-text">5. Appveyor的配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-对Coding进行自动部署"><span class="toc-text">6. 对Coding进行自动部署</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-域名绑定"><span class="toc-text">7. 域名绑定</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -216,7 +216,12 @@
 </tbody></table>
 <p>其中CD_REF在你的Coding的右上方可以看到，改成ssh之后@后面的就是CD_REF了。</p>
 <p><img src="/../img/image-20200223223844299.png" alt="image-20200223223844299"></p>
-<p>让我们看看效果如何。</p>
+<p>以后我们每次写完文章，直接git三连就可以自动化部署到两个静态页面托管仓库了。</p>
+<h4 id="7-域名绑定"><a href="#7-域名绑定" class="headerlink" title="7. 域名绑定"></a>7. 域名绑定</h4><p>​        我们可以对域名的dns解析记录进行修改，实现国内用户访问的是coding上的页面，国外用户访问github上的页面。</p>
+<p>​        一图流：</p>
+<p>​        <img src="/../img/image-20200223225143011.png" alt="image-20200223225143011"></p>
+<p>​            如果你的coding站点无法申请到证书，请暂停下境外的解析。</p>
+<p>​        -完</p>
 
         
         <br>
@@ -290,7 +295,7 @@
 
         (function() { // DON'T EDIT BELOW THIS LINE
             var d = document, s = d.createElement('script');
-            s.src = 'dadala.disqus.com/embed.js';
+            s.src = 'https://dadala.disqus.com/embed.js';
             s.setAttribute('data-timestamp', +new Date());
             (d.head || d.body).appendChild(s);
         })();

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="C/C++/C#">
+    <meta name="keyword" content>
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        416.分割等和子集 - FouRod
+        
+    </title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/aircloud.css">
+
+    
+<link rel="stylesheet" href="/css/gitment.css">
+
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> doRuoF </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar ">
+            <img src="/img/avatar.jpg">
+        </div>
+        <div class="name">
+            <i>AaJal</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#题目"><span class="toc-text">题目</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#理解"><span class="toc-text">理解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#代码"><span class="toc-text">代码</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> doRuoF </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        416.分割等和子集
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2020-07-07 16:31:23</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#算法" title="算法">算法</a>
+        <span>/</span>
+        
+        <a class="tag" href="/tags/#动态规划" title="动态规划">动态规划</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h1><p>给定一个只包含<strong>正整数</strong>的<strong>非空</strong>数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<p><strong>注意:</strong></p>
+<p>每个数组中的元素不会超过 100<br>数组的大小不会超过 200<br><strong>示例 1:</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [<span class="number">1</span>, <span class="number">5</span>, <span class="number">11</span>, <span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">输出: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">解释: 数组可以分割成 [<span class="number">1</span>, <span class="number">5</span>, <span class="number">5</span>] 和 [<span class="number">11</span>].</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例 2:</strong></p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br><span class="line"></span><br><span class="line">输出: <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">解释: 数组不能分割成两个元素和相等的子集.</span><br></pre></td></tr></table></figure>
+
+<h1 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h1><p>​    题目的两个子集的和相等代表着原来数组的和应该是一个偶数，不然分成两个子集之后，他们的和就不能相等，这是需要判断的一个点。</p>
+<p>​    这个问题可以转化为一个0-1背包问题，使用一个二维数组<code>dp[i][s]</code>来表示：</p>
+<blockquote>
+<p>能否从<code>[0,i]</code>的范围内选择一些数字，使得选出来的数字之和恰好等于s。</p>
+</blockquote>
+<p>​    我们先看看最基础的状态，比如<code>dp[i][0]</code>这种情况，不管能选多少个数字，我一个都不选，肯定能满足他们之和为0，所以<code>dp[i][0]</code>恒为<code>true</code>，还有<code>dp[0][s]</code>的情况，我没有数字可以选择，怎么我都凑不齐你要的<code>s</code>，所以除了<code>dp[0][0]</code>以外的所有<code>dp[0][s]</code>的值恒为<code>false</code>。</p>
+<p>​    根据上面的定义，满足题意的解答是<code>dp[len][sum/2]</code>，其中<code>len</code>是数组的长度，<code>sum</code>是数组的各元素之和。</p>
+<p>​    基础状态有了，<code>dp</code>数组的含义也有了，那么就要研究下状态转移了。</p>
+<p>​    对于当前的数字<code>nums[i]</code>，考虑<strong>选择</strong>还是<strong>不选</strong>：</p>
+<blockquote>
+<p>不选择： 那么<code>dp[i][s]</code>的值就等于上一次的值，因为这次你没有做任何改变，继承了上一次的值，即<code>dp[i][s] = dp[i-1][s]</code></p>
+<p>选择： <code>dp[i][s]</code>的值取决上一次选择范围内<code>[0,i-1]</code>，有没有数字的和等于<code>s-nums[i]</code>。即<code>dp[i][s] = dp[i-1][s-nums[i-1]]</code>  。</p>
+<p>为什么是<code>nums[i-1]</code>?     因为<code>dp</code>数组的<code>i</code>从1开始算，所以比<code>nums</code>数组的大1。</p>
+<p>为什么是<code>s-nums[i-1]</code>?     因为如果上一次选择范围内有数字之和等于<code>s-nums[i-1]</code>，那么我这次加上<code>nums[i-1]</code>肯定是可以满足和等于<code>s</code>的。</p>
+</blockquote>
+<p>​    </p>
+<p>​    <strong>为什么从1开始呢？</strong>        因为基础状态已经算出<code>i</code>为<code>0</code>的情况和<code>s</code>为<code>0</code>的情况了。</p>
+<p>​    对于<strong>示例一</strong>而言：</p>
+<blockquote>
+<p>当然这下面的负数索引在正式编程里会排除掉：</p>
+<p><code>j - nums[i - 1] &lt; 0</code>    //代表<strong>和</strong>比待加上去的数小，这在这个正整数数组里是不可能的，换言之就是说背包容量不足了。</p>
+<p><code>dp[i][s]=dp[i-1][s]</code>//只能让他的状况保持原来不变了。</p>
+<p><code>dp[1][1] = dp[0][1] || dp[0][1-1]</code> 根据基础状态可得为真</p>
+<p><code>dp[1][2] = dp[0][2] || dp[0][2-1]</code> 根据基础状态可得为假</p>
+<p>… </p>
+<p>一直到<code>dp[1][11]</code> 都为假。</p>
+<p><code>dp[2][1] = dp[1][1] || dp[1][1-5]</code> 根据之前记录的<code>dp[1][1]</code>可得，为真。</p>
+<p><code>dp[2][2] = dp[1][2] || dp[1][2-5]</code> 根据之前的记录<code>dp[1][2]</code>可得，为假。</p>
+<p>…</p>
+<p><code>dp[2][5] = dp[1][5] || dp[1][5-5]</code> 根据基础状态<code>dp[i][0]</code>可得，为真。</p>
+<p><code>dp[2][6] = dp[1][6] || dp[1][6-1]</code>根据之前的记录<code>dp[1][1]</code>可得，为真。</p>
+<p>…</p>
+<p>一直到<code>dp[2][11]</code>都为假。</p>
+<p>…</p>
+<p>其余状态<code>dp[3][1...11]</code>、<code>dp[4][1...11]</code>同理。</p>
+</blockquote>
+<p>最后返回的结果为<code>dp[4][11]</code>，也就是在整个数组范围<code>[1,4]</code>内，能不能找到一些数，使得他们之和为<code>11</code>，显然有的。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (sum % <span class="number">2</span> != <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        sum /= <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[len + <span class="number">1</span>][sum + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= sum; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (j - nums[i - <span class="number">1</span>] &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="comment">//容量不足</span></span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] || dp[i - <span class="number">1</span>][j - nums[i - <span class="number">1</span>]];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[len][sum];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud" target="_blank" rel="external nofollow noopener noreferrer">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="/js/index.js"></script>
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://dadala.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="AaJal">
+  <meta name="keywords" content="">
+  <title>416.分割等和子集 - FouRod</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/nord.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="FouRod" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>FouRod</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/post_banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-07 16:31">
+      2020年7月7日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      19
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1>
+<p>给定一个只包含<strong>正整数</strong>的<strong>非空</strong>数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<p><strong>注意:</strong></p>
+<p>每个数组中的元素不会超过 100<br />
+数组的大小不会超过 200<br />
+<strong>示例 1:</strong></p>
+<div class="hljs"><pre><code class="hljs angelscript">输入: [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">11</span>, <span class="hljs-number">5</span>]
+
+输出: <span class="hljs-literal">true</span>
+
+解释: 数组可以分割成 [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">5</span>] 和 [<span class="hljs-number">11</span>].</code></pre></div>
+<p><strong>示例 2:</strong></p>
+<div class="hljs"><pre><code class="hljs angelscript">输入: [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>]
+
+输出: <span class="hljs-literal">false</span>
+
+解释: 数组不能分割成两个元素和相等的子集.</code></pre></div>
+<h1 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h1>
+<p>​	题目的两个子集的和相等代表着原来数组的和应该是一个偶数，不然分成两个子集之后，他们的和就不能相等，这是需要判断的一个点。</p>
+<p>​	这个问题可以转化为一个0-1背包问题，使用一个二维数组<code>dp[i][s]</code>来表示：</p>
+<blockquote>
+<p>能否从<code>[0,i]</code>的范围内选择一些数字，使得选出来的数字之和恰好等于s。</p>
+</blockquote>
+<p>​	我们先看看最基础的状态，比如<code>dp[i][0]</code>这种情况，不管能选多少个数字，我一个都不选，肯定能满足他们之和为0，所以<code>dp[i][0]</code>恒为<code>true</code>，还有<code>dp[0][s]</code>的情况，我没有数字可以选择，怎么我都凑不齐你要的<code>s</code>，所以除了<code>dp[0][0]</code>以外的所有<code>dp[0][s]</code>的值恒为<code>false</code>。</p>
+<p>​	根据上面的定义，满足题意的解答是<code>dp[len][sum/2]</code>，其中<code>len</code>是数组的长度，<code>sum</code>是数组的各元素之和。</p>
+<p>​	基础状态有了，<code>dp</code>数组的含义也有了，那么就要研究下状态转移了。</p>
+<p>​	对于当前的数字<code>nums[i]</code>，考虑<strong>选择</strong>还是<strong>不选</strong>：</p>
+<blockquote>
+<p>不选择： 那么<code>dp[i][s]</code>的值就等于上一次的值，因为这次你没有做任何改变，继承了上一次的值，即<code>dp[i][s] = dp[i-1][s]</code></p>
+<p>选择： <code>dp[i][s]</code>的值取决上一次选择范围内<code>[0,i-1]</code>，有没有数字的和等于<code>s-nums[i]</code>。即<code>dp[i][s] = dp[i-1][s-nums[i-1]]</code>  。</p>
+<p>为什么是<code>nums[i-1]</code>? 	因为<code>dp</code>数组的<code>i</code>从1开始算，所以比<code>nums</code>数组的大1。</p>
+<p>为什么是<code>s-nums[i-1]</code>? 	因为如果上一次选择范围内有数字之和等于<code>s-nums[i-1]</code>，那么我这次加上<code>nums[i-1]</code>肯定是可以满足和等于<code>s</code>的。</p>
+</blockquote>
+<p>​</p>
+<p>​	<strong>为什么从1开始呢？</strong>		因为基础状态已经算出<code>i</code>为<code>0</code>的情况和<code>s</code>为<code>0</code>的情况了。</p>
+<p>​	对于<strong>示例一</strong>而言：</p>
+<blockquote>
+<p>当然这下面的负数索引在正式编程里会排除掉：</p>
+<p><code>j - nums[i - 1] &lt; 0</code>	//代表<strong>和</strong>比待加上去的数小，这在这个正整数数组里是不可能的，换言之就是说背包容量不足了。</p>
+<p><code>dp[i][s]=dp[i-1][s]</code>//只能让他的状况保持原来不变了。</p>
+<p><code>dp[1][1] = dp[0][1] || dp[0][1-1]</code> 根据基础状态可得为真</p>
+<p><code>dp[1][2] = dp[0][2] || dp[0][2-1]</code> 根据基础状态可得为假</p>
+<p>…</p>
+<p>一直到<code>dp[1][11]</code> 都为假。</p>
+<p><code>dp[2][1] = dp[1][1] || dp[1][1-5]</code> 根据之前记录的<code>dp[1][1]</code>可得，为真。</p>
+<p><code>dp[2][2] = dp[1][2] || dp[1][2-5]</code> 根据之前的记录<code>dp[1][2]</code>可得，为假。</p>
+<p>…</p>
+<p><code>dp[2][5] = dp[1][5] || dp[1][5-5]</code> 根据基础状态<code>dp[i][0]</code>可得，为真。</p>
+<p><code>dp[2][6] = dp[1][6] || dp[1][6-1]</code>根据之前的记录<code>dp[1][1]</code>可得，为真。</p>
+<p>…</p>
+<p>一直到<code>dp[2][11]</code>都为假。</p>
+<p>…</p>
+<p>其余状态<code>dp[3][1...11]</code>、<code>dp[4][1...11]</code>同理。</p>
+</blockquote>
+<p>最后返回的结果为<code>dp[4][11]</code>，也就是在整个数组范围<code>[1,4]</code>内，能不能找到一些数，使得他们之和为<code>11</code>，显然有的。</p>
+<h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canPartition</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> len = nums.length;
+        <span class="hljs-keyword">if</span> (len == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;
+            sum += nums[i];
+        &#125;
+        <span class="hljs-keyword">if</span> (sum % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+        sum /= <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">boolean</span>[][] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[len + <span class="hljs-number">1</span>][sum + <span class="hljs-number">1</span>];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len + <span class="hljs-number">1</span>; i++) &#123;
+            dp[i][<span class="hljs-number">0</span>] = <span class="hljs-keyword">true</span>;
+        &#125;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= len; i++) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= sum; j++) &#123;
+                <span class="hljs-keyword">if</span> (j - nums[i - <span class="hljs-number">1</span>] &lt; <span class="hljs-number">0</span>) &#123;
+                    <span class="hljs-comment">//容量不足</span>
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j];
+                &#125; <span class="hljs-keyword">else</span> &#123;
+                    dp[i][j] = dp[i - <span class="hljs-number">1</span>][j] || dp[i - <span class="hljs-number">1</span>][j - nums[i - <span class="hljs-number">1</span>]];
+                &#125;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> dp[len][sum];
+    &#125;
+&#125;</code></pre></div>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/p/9c78cf30.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">494. 目标和</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/p/6f7d03df.html">
+                        <span class="hidden-mobile">JWT+Ajax验证</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.defer = false
+      s.setAttribute('repo', 'hukkall/comment');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      var e = document.getElementsByTagName('script')[0];
+      e.parentNode.insertBefore(s, e);
+    }
+    createObserver(loadUtterances, 'comments')
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "416.分割等和子集&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-172063258-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

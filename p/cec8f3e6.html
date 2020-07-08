@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="AaJal">
+  <meta name="keywords" content="">
+  <title>JWT学习 - FouRod</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/nord.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="FouRod" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>FouRod</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/post_banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-29 14:39">
+      2020年6月29日 下午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      105
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="jwt-学习"><a class="markdownIt-Anchor" href="#jwt-学习"></a> JWT 学习</h1>
+<h2 id="1-概念"><a class="markdownIt-Anchor" href="#1-概念"></a> 1、概念</h2>
+<p>​	 JWT(Jason Web Token)按照我个人理解，是一串服务端按照特定的加密算法生成的字符串。</p>
+<p>​	在用户登录成功之后，服务器将用户的个人信息加密并签名成一串字符串发送回用户浏览器，在每次访问受权限控制的网页的时候将这串字符串发回给服务器，用于证明“你还是你”。然后服务端可以解密这串字符串，从里面拿到用户的相关信息，并判断用户有无权限访问此页面。</p>
+<p>​	绿小萝的开发中，我们采用了传统的session来记录用户信息，这样在本地或者说单机开发是没有什么问题。但是一旦出现前后端分别处于不同的服务器里，产生了跨域的问题，这样的话session就比较难处理了。</p>
+<p>​	采用JWT的话，服务器不保存用户的session，只凭JWT里面的信息来鉴别用户，这样的话，跨域就变得很简单了。</p>
+<p>​	JWT这个字符串由三个结构组成</p>
+<blockquote>
+<ul>
+<li>头部(Header)</li>
+<li>“alg” 加密类型</li>
+<li>“typ” 这串token的类型，自然是JWT</li>
+<li>载荷(PayLoad)</li>
+<li>可自定义，采用键值对的方式</li>
+<li>签名</li>
+<li>与服务端指定的密匙有关</li>
+</ul>
+</blockquote>
+<p>​	附：我们使用的session认证流程：</p>
+<blockquote>
+<ol>
+<li>用户登录，发送用户名和密码到后台</li>
+<li>后台验证通过之后，将从数据库取出来的用户信息保存到session里</li>
+<li>后台向用户浏览器返回一个session_id，写入浏览器的cookie里。</li>
+<li>之后的每一个请求，都会将cookie里面的session_id发送回后台</li>
+<li>后台通过前台传来的session_id，找到保存起来的session，并从里面取得用户信息。</li>
+</ol>
+</blockquote>
+<h2 id="2-小试牛刀"><a class="markdownIt-Anchor" href="#2-小试牛刀"></a> 2、小试牛刀</h2>
+<p>​	网上找了个教程，讲的很好，我模仿他的例子，加上了自己理解的注释：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">contextLoads</span><span class="hljs-params">()</span> </span>&#123;
+        String s = genToken();
+        verifyToken(s);
+
+    &#125;
+	<span class="hljs-comment">//生成JWT</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">genToken</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-comment">//先生成token，预设好一个Key</span>
+        String secret = <span class="hljs-string">"imkey"</span>;
+        <span class="hljs-comment">//加密</span>
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        <span class="hljs-comment">//设置头部信息</span>
+        <span class="hljs-comment">//也就是加密算法类型以及token类型</span>
+        Map&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-string">"alg"</span>, <span class="hljs-string">"HS256"</span>);
+        map.put(<span class="hljs-string">"typ"</span>, <span class="hljs-string">"JWT"</span>);
+
+        <span class="hljs-comment">//设置载荷（payload）</span>
+        String token = JWT.create()
+                <span class="hljs-comment">//定义头部</span>
+                .withHeader(map)
+                <span class="hljs-comment">//自定义载荷</span>
+                .withClaim(<span class="hljs-string">"name"</span>, <span class="hljs-string">"李一"</span>)
+                <span class="hljs-comment">//定义主题</span>
+                .withSubject(<span class="hljs-string">"一个token"</span>)
+                <span class="hljs-comment">//签名头部</span>
+                .sign(algorithm);
+        <span class="hljs-keyword">return</span> token;
+    &#125;
+	<span class="hljs-comment">//校验JWT</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">verifyToken</span><span class="hljs-params">(String token)</span></span>&#123;
+        <span class="hljs-comment">//定义加密类型</span>
+        Algorithm algorithm = Algorithm.HMAC256(<span class="hljs-string">"imkey"</span>);
+        <span class="hljs-comment">//获取这种算法的对应的解密（校验）对象</span>
+        JWTVerifier require = JWT.require(algorithm)
+                .build();
+        System.out.println(require);
+        <span class="hljs-comment">//解密</span>
+        DecodedJWT decodedJWT = require.verify(token);
+        <span class="hljs-comment">//获取载荷里面的值</span>
+        Claim claim = decodedJWT.getClaim(<span class="hljs-string">"name"</span>);
+        System.out.println(claim);
+        <span class="hljs-comment">//输出载荷的值</span>
+        System.out.println(claim.asString());
+    &#125;</code></pre></div>
+<p>运行结果如下：</p>
+<p><img src="/img/image-20200626083111707-1593413542002.png" srcset="/img/loading.gif" alt="image-20200626083111707" /></p>
+<p>是没有问题的。</p>
+<h2 id="3-使用ajax发送用户信息并进行登录认证的jwt应用"><a class="markdownIt-Anchor" href="#3-使用ajax发送用户信息并进行登录认证的jwt应用"></a> 3、使用ajax发送用户信息并进行登录认证的JWT应用</h2>
+<p>​		项目结构如下所示</p>
+<p><img src="/img/image-20200626122914327.png" srcset="/img/loading.gif" alt="image-20200626122914327" /></p>
+<p>流程图（<a href="https://www.cnblogs.com/fishpro/p/spring-boot-study-securing-jwt.html" target="_blank" rel="noopener">引用了一个大佬的图</a>，详情请见本章末尾）</p>
+<p><img src="/img/o_jwt2.jpg" srcset="/img/loading.gif" alt="o_jwt2" /></p>
+<p><img src="/img/o_jwt3.jpg" srcset="/img/loading.gif" alt="o_jwt3" /></p>
+<p><img src="/img/o_jwt4.jpg" srcset="/img/loading.gif" alt="o_jwt4" /></p>
+<p><strong>JwtAuthenticationController</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 用于验证 jwt 返回客户端 jwt（json web token）</span>
+<span class="hljs-comment"> * */</span>
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-meta">@CrossOrigin</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtAuthenticationController</span> </span>&#123;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> AuthenticationManager authenticationManager;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> JwtTokenUtil jwtTokenUtil;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> JwtUserDetailsService userDetailsService;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 获取 客户端来的 username password 使用秘钥加密成 json web token</span>
+<span class="hljs-comment">     * */</span>
+    <span class="hljs-meta">@RequestMapping</span>(value = <span class="hljs-string">"/authenticate"</span>, method = RequestMethod.POST)
+    <span class="hljs-keyword">public</span> ResponseEntity&lt;?&gt; createAuthenticationToken(<span class="hljs-meta">@RequestBody</span> JwtRequest authenticationRequest) <span class="hljs-keyword">throws</span> Exception &#123;
+        <span class="hljs-comment">//获取前台传来的明文账号密码并进行认证</span>
+        authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        <span class="hljs-comment">//认证操作成功后，以下的语句才会执行</span>
+
+
+        <span class="hljs-comment">//获取用户信息</span>
+        <span class="hljs-keyword">final</span> UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getUsername());
+        <span class="hljs-comment">//生成token</span>
+        <span class="hljs-keyword">final</span> String token = jwtTokenUtil.generateToken(userDetails);
+        <span class="hljs-comment">//向前台返回序列化后的token</span>
+        <span class="hljs-keyword">return</span> ResponseEntity.ok(<span class="hljs-keyword">new</span> JwtResponse(token));
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     *  获取 客户端来的 username password 使用秘钥加密成 json web token</span>
+<span class="hljs-comment">     * */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">authenticate</span><span class="hljs-params">(String username, String password)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        <span class="hljs-keyword">try</span> &#123;
+            <span class="hljs-comment">//创建一个没有认证的token实例，此时“是否身份认证过”属性为false</span>
+            <span class="hljs-comment">//由于此时未进行身份认证，所以他的权限未知</span>
+
+            <span class="hljs-comment">//认证信息管理（authenticationManager），从指定的用户数据源加载用户信息</span>
+            <span class="hljs-comment">//然后使用约定好的加密方式，进行认证。</span>
+            <span class="hljs-comment">//认证失败之后，直接返回给前台401</span>
+            authenticationManager.authenticate(<span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(username, password));
+        &#125; <span class="hljs-keyword">catch</span> (DisabledException e) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"USER_DISABLED"</span>, e);
+        &#125; <span class="hljs-keyword">catch</span> (BadCredentialsException e) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Exception(<span class="hljs-string">"INVALID_CREDENTIALS"</span>, e);
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+<p><strong>JwtAuthenticationEntryPoint</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * AuthenticationEntryPoint 用来解决匿名用户访问无权限资源时的异常</span>
+<span class="hljs-comment"> * AccessDeineHandler 用来解决认证过的用户访问无权限资源时的异常</span>
+<span class="hljs-comment"> * */</span>
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtAuthenticationEntryPoint</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AuthenticationEntryPoint</span>, <span class="hljs-title">Serializable</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = -<span class="hljs-number">7858869558953243875L</span>;
+
+    <span class="hljs-comment">//当出错的时候 发送 Unauthorized</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">commence</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response,</span></span>
+<span class="hljs-function"><span class="hljs-params">                         AuthenticationException authException)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;
+
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, <span class="hljs-string">"Unauthorized"</span>);
+    &#125;
+&#125;</code></pre></div>
+<p><strong>JwtRequestFilter</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * 过滤器 用于 Spring Boot Security</span>
+<span class="hljs-comment"> * OncePerRequestFilter 一次请求只通过一次filter，而不需要重复执行</span>
+<span class="hljs-comment"> * */</span>
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtRequestFilter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">OncePerRequestFilter</span> </span>&#123;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> JwtUserDetailsService jwtUserDetailsService;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> JwtTokenUtil jwtTokenUtil;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doFilterInternal</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, FilterChain chain)</span></span>
+<span class="hljs-function">            <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;
+        <span class="hljs-comment">//获得请求头</span>
+        <span class="hljs-keyword">final</span> String requestTokenHeader = request.getHeader(<span class="hljs-string">"Authorization"</span>);
+
+        String username = <span class="hljs-keyword">null</span>;
+        String jwtToken = <span class="hljs-keyword">null</span>;
+        <span class="hljs-comment">// JWT Token 获取请求头部的 Bearer</span>
+        <span class="hljs-comment">// only the Token</span>
+        <span class="hljs-keyword">if</span> (requestTokenHeader != <span class="hljs-keyword">null</span> &amp;&amp; requestTokenHeader.startsWith(<span class="hljs-string">"Bearer "</span>)) &#123;
+            jwtToken = requestTokenHeader.substring(<span class="hljs-number">7</span>);
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">//从token里获取用户名</span>
+                username = jwtTokenUtil.getUsernameFromToken(jwtToken);
+            &#125; <span class="hljs-keyword">catch</span> (IllegalArgumentException e) &#123;
+                System.out.println(<span class="hljs-string">"Unable to get JWT Token"</span>);
+            &#125; <span class="hljs-keyword">catch</span> (ExpiredJwtException e) &#123;
+                System.out.println(<span class="hljs-string">"JWT Token has expired"</span>);
+            &#125;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            logger.warn(<span class="hljs-string">"JWT Token does not begin with Bearer String"</span>);
+        &#125;
+
+        <span class="hljs-comment">// 验证</span>
+        <span class="hljs-keyword">if</span> (username != <span class="hljs-keyword">null</span> &amp;&amp; SecurityContextHolder.getContext().getAuthentication() == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-comment">//我猜，之所以要在这里再校验一次用户名，是防止上面的异常抛出的后，username为空的情况。</span>
+            <span class="hljs-comment">//获取用户的在后台保存的账号密码，封装成一个对象，通过查询用户名的方式</span>
+            UserDetails userDetails = <span class="hljs-keyword">this</span>.jwtUserDetailsService.loadUserByUsername(username);
+
+            <span class="hljs-comment">// JWT 验证通过 使用Spring Security 管理</span>
+            <span class="hljs-comment">//将token里面的用户名和保存的对象进行校验</span>
+            <span class="hljs-keyword">if</span> (jwtTokenUtil.validateToken(jwtToken, userDetails)) &#123;
+                <span class="hljs-comment">//传入用户信息，</span>
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(
+                        userDetails, <span class="hljs-keyword">null</span>, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(<span class="hljs-keyword">new</span> WebAuthenticationDetailsSource().buildDetails(request));
+                <span class="hljs-comment">// After setting the Authentication in the context, we specify</span>
+                <span class="hljs-comment">// that the current user is authenticated. So it passes the</span>
+                <span class="hljs-comment">// Spring Security Configurations successfully.</span>
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            &#125;
+        &#125;
+        <span class="hljs-comment">//没有token，则跑去jwtcontroller</span>
+        chain.doFilter(request, response);
+    &#125;
+
+&#125;</code></pre></div>
+<p><strong>JwtUserDetailsService</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">//用户信息来源</span>
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtUserDetailsService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserDetailsService</span> </span>&#123;
+<span class="hljs-comment">//通过用户名加载</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> UserDetails <span class="hljs-title">loadUserByUsername</span><span class="hljs-params">(String username)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException </span>&#123;
+        <span class="hljs-keyword">if</span> (<span class="hljs-string">"javainuse"</span>.equals(username)) &#123;
+            <span class="hljs-comment">//新建一个用户名为：javainuse的用户，密码为用BC加密的password,后面的数组是这个用户的权限列表，目前为空。</span>
+            <span class="hljs-comment">//BC加密后的字符串有着它特殊的意思，前面的2a表示使用了bc加密，后面的10表示它hash了10次</span>
+            <span class="hljs-comment">//然后从第三个$开始算起的21个字符都是它的salt，用于混淆用的</span>
+            <span class="hljs-comment">//后面的全都是密文密码和slat hash10次之后的密文</span>
+            <span class="hljs-comment">//如何校验？</span>
+            <span class="hljs-comment">//获得前台传来的明文密码，取储存好的BC加密后的字符串，取其中的盐，hash10次之后，和密文进行匹配。</span>
+
+
+            <span class="hljs-comment">//返回用户的用户名、BC加密后的密码、以及权限列表。</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> User(<span class="hljs-string">"javainuse"</span>, <span class="hljs-string">"$2a$10$slYQmyNdGzTn7ZLBXBChFOC9f6kFjAqPhccnP6DxlWXx2lPk1C3G6"</span>,
+                    <span class="hljs-keyword">new</span> ArrayList&lt;&gt;());
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UsernameNotFoundException(<span class="hljs-string">"User not found with username: "</span> + username);
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+<p><strong>WebSecurityConfig</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableWebSecurity</span>
+<span class="hljs-meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="hljs-keyword">true</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">WebSecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WebSecurityConfigurerAdapter</span> </span>&#123;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserDetailsService jwtUserDetailsService;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> JwtRequestFilter jwtRequestFilter;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">configureGlobal</span><span class="hljs-params">(AuthenticationManagerBuilder auth)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        <span class="hljs-comment">// configure AuthenticationManager so that it knows from where to load</span>
+        <span class="hljs-comment">// user for matching credentials</span>
+        <span class="hljs-comment">// Use BCryptPasswordEncoder</span>
+        <span class="hljs-comment">//配置用于用户信息来源，并设置好加密方式</span>
+        auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+    &#125;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> PasswordEncoder <span class="hljs-title">passwordEncoder</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BCryptPasswordEncoder();
+    &#125;
+
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> AuthenticationManager <span class="hljs-title">authenticationManagerBean</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.authenticationManagerBean();
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(HttpSecurity httpSecurity)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        <span class="hljs-comment">// 本示例不需要使用CSRF</span>
+        httpSecurity.csrf().disable()
+                <span class="hljs-comment">// 认证页面不需要权限</span>
+                .authorizeRequests().antMatchers(<span class="hljs-string">"/authenticate"</span>).permitAll().
+                <span class="hljs-comment">//其他页面</span>
+                        anyRequest().authenticated().and().
+                <span class="hljs-comment">//登录页面 模拟客户端</span>
+                formLogin().loginPage(<span class="hljs-string">"/login.html"</span>).permitAll().and().
+                <span class="hljs-comment">// store user's state.</span>
+                 exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+                <span class="hljs-comment">//不使用session</span>
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
+        <span class="hljs-comment">//验证请求是否正确</span>
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+    &#125;
+&#125;</code></pre></div>
+<p><strong>HelloWorldController</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HelloWorldController</span> </span>&#123;
+
+    <span class="hljs-meta">@RequestMapping</span>(&#123; <span class="hljs-string">"/hello"</span> &#125;)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">firstPage</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello World"</span>;
+    &#125;
+
+&#125;</code></pre></div>
+<p><strong>JwtRequest</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtRequest</span></span>&#123;
+
+   <span class="hljs-comment">// private static final long serialVersionUID = 5926468583005150707L;</span>
+
+    <span class="hljs-keyword">private</span> String username;
+    <span class="hljs-keyword">private</span> String password;
+
+    <span class="hljs-comment">//need default constructor for JSON Parsing</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JwtRequest</span><span class="hljs-params">()</span></span>
+<span class="hljs-function">    </span>&#123;
+
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JwtRequest</span><span class="hljs-params">(String username, String password)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.setUsername(username);
+        <span class="hljs-keyword">this</span>.setPassword(password);
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUsername</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.username;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setUsername</span><span class="hljs-params">(String username)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.username = username;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getPassword</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.password;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setPassword</span><span class="hljs-params">(String password)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.password = password;
+    &#125;
+&#125;</code></pre></div>
+<p><strong>JwtResponse</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtResponse</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = -<span class="hljs-number">8091879091924046844L</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> String jwttoken;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JwtResponse</span><span class="hljs-params">(String jwttoken)</span> </span>&#123;
+        <span class="hljs-keyword">this</span>.jwttoken = jwttoken;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getToken</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.jwttoken;
+    &#125;
+&#125;</code></pre></div>
+<p><strong>JwtTokenUtil</strong></p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JwtTokenUtil</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = -<span class="hljs-number">2550185165626007488L</span>;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> JWT_TOKEN_VALIDITY = <span class="hljs-number">5</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>;
+
+    <span class="hljs-meta">@Value</span>(<span class="hljs-string">"$&#123;jwt.secret&#125;"</span>)
+    <span class="hljs-keyword">private</span> String secret;
+
+    <span class="hljs-comment">//retrieve username from jwt token</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">getUsernameFromToken</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> getClaimFromToken(token, Claims::getSubject);
+    &#125;
+
+    <span class="hljs-comment">//retrieve expiration date from jwt token</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Date <span class="hljs-title">getExpirationDateFromToken</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> getClaimFromToken(token, Claims::getExpiration);
+    &#125;
+
+    <span class="hljs-keyword">public</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">getClaimFromToken</span><span class="hljs-params">(String token, Function&lt;Claims, T&gt; claimsResolver)</span> </span>&#123;
+        <span class="hljs-keyword">final</span> Claims claims = getAllClaimsFromToken(token);
+        <span class="hljs-keyword">return</span> claimsResolver.apply(claims);
+    &#125;
+    <span class="hljs-comment">//for retrieveing any information from token we will need the secret key</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> Claims <span class="hljs-title">getAllClaimsFromToken</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+    &#125;
+
+    <span class="hljs-comment">//check if the token has expired</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> Boolean <span class="hljs-title">isTokenExpired</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">final</span> Date expiration = getExpirationDateFromToken(token);
+        <span class="hljs-keyword">return</span> expiration.before(<span class="hljs-keyword">new</span> Date());
+    &#125;
+
+    <span class="hljs-comment">//generate token for user</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">generateToken</span><span class="hljs-params">(UserDetails userDetails)</span> </span>&#123;
+        Map&lt;String, Object&gt; claims = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        <span class="hljs-keyword">return</span> doGenerateToken(claims, userDetails.getUsername());
+    &#125;
+
+    <span class="hljs-comment">//while creating the token -</span>
+    <span class="hljs-comment">//1. Define  claims of the token, like Issuer, Expiration, Subject, and the ID</span>
+    <span class="hljs-comment">//2. Sign the JWT using the HS512 algorithm and secret key.</span>
+    <span class="hljs-comment">//3. According to JWS Compact Serialization(https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41#section-3.1)</span>
+    <span class="hljs-comment">//   compaction of the JWT to a URL-safe string</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> String <span class="hljs-title">doGenerateToken</span><span class="hljs-params">(Map&lt;String, Object&gt; claims, String subject)</span> </span>&#123;
+
+        <span class="hljs-keyword">return</span> Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(<span class="hljs-keyword">new</span> Date(System.currentTimeMillis()))
+                .setExpiration(<span class="hljs-keyword">new</span> Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * <span class="hljs-number">1000</span>))
+                .signWith(SignatureAlgorithm.HS512, secret).compact();
+    &#125;
+
+    <span class="hljs-comment">//校验 token</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Boolean <span class="hljs-title">validateToken</span><span class="hljs-params">(String token, UserDetails userDetails)</span> </span>&#123;
+        <span class="hljs-comment">//获取token的用户名，并进行匹配</span>
+        <span class="hljs-keyword">final</span> String username = getUsernameFromToken(token);
+        <span class="hljs-keyword">return</span> (username.equals(userDetails.getUsername()) &amp;&amp; !isTokenExpired(token));
+    &#125;
+&#125;</code></pre></div>
+<p>登录用的ajax：</p>
+<div class="hljs"><pre><code class="hljs javascript">$(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+        $(<span class="hljs-string">"#btnSave"</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+            <span class="hljs-keyword">var</span> username=$(<span class="hljs-string">"#userName"</span>).val();
+            <span class="hljs-keyword">var</span> password=$(<span class="hljs-string">"#password"</span>).val();
+            $.ajax(&#123;
+                cache: <span class="hljs-literal">true</span>,
+                type: <span class="hljs-string">"POST"</span>,
+                url: <span class="hljs-string">"/authenticate"</span>,
+                contentType: <span class="hljs-string">"application/json;charset=UTF-8"</span>,
+                data:<span class="hljs-built_in">JSON</span>.stringify(&#123;<span class="hljs-string">"username"</span>:username ,<span class="hljs-string">"password"</span> : password&#125;),
+                dataType: <span class="hljs-string">"json"</span>,
+                <span class="hljs-keyword">async</span>: <span class="hljs-literal">false</span>,
+                error: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">request</span>) </span>&#123;
+                    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Connection error"</span>);
+                &#125;,
+                success: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>&#123;
+                    <span class="hljs-comment">//save token</span>
+                    localStorage.setItem(<span class="hljs-string">"token"</span>,data.token);
+
+
+                &#125;
+            &#125;);
+        &#125;);
+    &#125;);</code></pre></div>
+<p>注意，这个项目的java版本要求是java8，如果你是和我一样使用java11或更高的版本的话，可以使用我的pom.xml里面的配置。</p>
+<div class="hljs"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.xml.bind<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxb-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.sun.xml.bind<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxb-impl<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.sun.xml.bind<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jaxb-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.3.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>javax.activation<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>activation<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.1.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.jsonwebtoken<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jjwt<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>0.9.1<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.security<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-security-test<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>test<span class="hljs-tag">&lt;/<span class="hljs-name">scope</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span></code></pre></div>
+<p>参考来源：</p>
+<p><a href="https://www.cnblogs.com/fishpro/p/spring-boot-study-securing-jwt.html" target="_blank" rel="noopener">Spring Boot Security JWT 整合实现前后端分离认证示例</a></p>
+<p><a href="https://www.javainuse.com/spring/boot-jwt" target="_blank" rel="noopener">Spring Boot Security + JWT Hello World Example</a></p>
+<h2 id="4-jwt数据库-授权部分"><a class="markdownIt-Anchor" href="#4-jwt数据库-授权部分"></a> 4、 JWT+数据库 授权部分</h2>
+<p>​	我觉得这玩意可难了，学了个两天才勉勉强强搞明白个一小半。唉，吃了英语不好的亏。</p>
+<p>​	以下是大概的流程：</p>
+<img src="/img/image-20200628170759526.png" srcset="/img/loading.gif" alt="A" style="zoom: 100%;" />
+<p>所用到的类：</p>
+<h3 id="拦截器类-jwtauthenticationtokenfilter"><a class="markdownIt-Anchor" href="#拦截器类-jwtauthenticationtokenfilter"></a> 拦截器类 JWTAuthenticationTokenFilter</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JWTAuthenticationTokenFilter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasicAuthenticationFilter</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JWTAuthenticationTokenFilter</span><span class="hljs-params">(AuthenticationManager authenticationManager)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(authenticationManager);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doFilterInternal</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;
+        <span class="hljs-comment">// 获取请求头中JWT的Token</span>
+        String tokenHeader = request.getHeader(JWTConfig.tokenHeader);
+        <span class="hljs-comment">// &amp;&amp; tokenHeader.startsWith(JWTConfig.tokenPrefix)</span>
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span>!=tokenHeader) &#123;
+            <span class="hljs-keyword">try</span> &#123;
+                <span class="hljs-comment">// 截取JWT前缀</span>
+                String token = tokenHeader.replace(<span class="hljs-string">"Bearer Sans-"</span>, <span class="hljs-string">""</span>);
+                <span class="hljs-comment">// 解析JWT</span>
+                Claims claims = Jwts.parser()
+                        .setSigningKey(JWTConfig.secret)
+                        .parseClaimsJws(token)
+                        .getBody();
+                log.info(claims.toString());
+                <span class="hljs-comment">// 获取用户名</span>
+                String username = claims.getSubject();
+                String userId=claims.getId();
+                <span class="hljs-keyword">if</span>(!StringUtils.isEmpty(username)&amp;&amp;!StringUtils.isEmpty(userId)) &#123;
+                    <span class="hljs-comment">// 获取角色</span>
+                    List&lt;GrantedAuthority&gt; authorities = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+                    String authority = claims.get(<span class="hljs-string">"authorities"</span>).toString();
+                    log.info(authority);
+                    <span class="hljs-keyword">if</span>(!StringUtils.isEmpty(authority))&#123;
+                        List&lt;Map&lt;String,String&gt;&gt; authorityMap = JSONObject.parseObject(authority, List<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+                        <span class="hljs-keyword">for</span> (Map&lt;String, String&gt; stringStringMap : authorityMap) &#123;
+                            <span class="hljs-keyword">for</span> (String s : stringStringMap.keySet()) &#123;
+                                log.info(s);
+                                log.info(stringStringMap.get(s));
+                            &#125;
+                        &#125;
+                        <span class="hljs-keyword">for</span>(Map&lt;String,String&gt; role : authorityMap)&#123;
+                            <span class="hljs-keyword">if</span>(!StringUtils.isEmpty(role)) &#123;
+                                authorities.add(<span class="hljs-keyword">new</span> SimpleGrantedAuthority(role.get(<span class="hljs-string">"authority"</span>)));
+                                <span class="hljs-comment">//log.info(role.get("authority"));</span>
+                            &#125;
+                        &#125;
+                    &#125;
+                    <span class="hljs-comment">//组装参数</span>
+                    SelfUserEntity selfUserEntity = <span class="hljs-keyword">new</span> SelfUserEntity();
+                    selfUserEntity.setUsername(claims.getSubject());
+                    selfUserEntity.setUserId(Long.parseLong(claims.getId()));
+                    selfUserEntity.setAuthorities(authorities);
+                    UsernamePasswordAuthenticationToken authentication = <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(selfUserEntity, userId, authorities);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                &#125;
+            &#125; <span class="hljs-keyword">catch</span> (ExpiredJwtException e)&#123;
+                log.info(<span class="hljs-string">"Token过期"</span>);
+            &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+                log.error(e.getMessage());
+                log.info(<span class="hljs-string">"Token无效"</span>);
+            &#125;
+        &#125;
+        filterChain.doFilter(request, response);
+        <span class="hljs-keyword">return</span>;
+    &#125;
+&#125;</code></pre></div>
+<h3 id="security配置类-securityconfig"><a class="markdownIt-Anchor" href="#security配置类-securityconfig"></a> Security配置类 SecurityConfig</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableWebSecurity</span>
+<span class="hljs-meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="hljs-keyword">true</span>) <span class="hljs-comment">//开启权限注解,默认是关闭的</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WebSecurityConfigurerAdapter</span> </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自定义登录成功处理器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserLoginSuccessHandler userLoginSuccessHandler;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自定义登录失败处理器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserLoginFailureHandler userLoginFailureHandler;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自定义注销成功处理器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserLogoutSuccessHandler userLogoutSuccessHandler;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自定义暂无权限处理器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserAuthAccessDeniedHandler userAuthAccessDeniedHandler;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自定义未登录的处理器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserAuthenticationEntryPointHandler userAuthenticationEntryPointHandler;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 自定义登录逻辑验证器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> UserAuthenticationProvider userAuthenticationProvider;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 加密方式</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Author</span> Sans</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@CreateTime</span> 2019/10/1 14:00</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> BCryptPasswordEncoder <span class="hljs-title">bCryptPasswordEncoder</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> BCryptPasswordEncoder();
+    &#125;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 注入自定义PermissionEvaluator</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> DefaultWebSecurityExpressionHandler <span class="hljs-title">userSecurityExpressionHandler</span><span class="hljs-params">()</span></span>&#123;
+        DefaultWebSecurityExpressionHandler handler = <span class="hljs-keyword">new</span> DefaultWebSecurityExpressionHandler();
+        handler.setPermissionEvaluator(<span class="hljs-keyword">new</span> UserPermissionEvaluator());
+        <span class="hljs-keyword">return</span> handler;
+    &#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 配置登录验证逻辑</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(AuthenticationManagerBuilder auth)</span></span>&#123;
+        <span class="hljs-comment">//这里可启用我们自己的登陆验证逻辑</span>
+        auth.authenticationProvider(userAuthenticationProvider);
+    &#125;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 配置security的控制逻辑</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Author</span> Sans</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@CreateTime</span> 2019/10/1 16:56</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Param</span>  http 请求</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        http.authorizeRequests()
+                <span class="hljs-comment">// 不进行权限验证的请求或资源(从配置文件中读取)</span>
+               .antMatchers(JWTConfig.antMatchers.split(<span class="hljs-string">","</span>)).permitAll()
+                <span class="hljs-comment">// 其他的需要登陆后才能访问</span>
+                .anyRequest().authenticated()
+                .and()
+                <span class="hljs-comment">// 配置未登录自定义处理类</span>
+                .httpBasic().authenticationEntryPoint(userAuthenticationEntryPointHandler)
+                .and()
+                <span class="hljs-comment">// 配置登录地址</span>
+                .formLogin()
+                .loginProcessingUrl(<span class="hljs-string">"/login/userLogin"</span>)
+                <span class="hljs-comment">// 配置登录成功自定义处理类</span>
+                .successHandler(userLoginSuccessHandler)
+                <span class="hljs-comment">// 配置登录失败自定义处理类</span>
+                .failureHandler(userLoginFailureHandler)
+                .and()
+                <span class="hljs-comment">// 配置登出地址</span>
+                .logout()
+                .logoutUrl(<span class="hljs-string">"/login/userLogout"</span>)
+                <span class="hljs-comment">// 配置用户登出自定义处理类</span>
+                .logoutSuccessHandler(userLogoutSuccessHandler)
+                .and()
+                <span class="hljs-comment">// 配置没有权限自定义处理类</span>
+                .exceptionHandling().accessDeniedHandler(userAuthAccessDeniedHandler)
+                .and()
+                <span class="hljs-comment">// 开启跨域</span>
+                .cors()
+                .and()
+                <span class="hljs-comment">// 取消跨站请求伪造防护</span>
+                .csrf().disable();
+
+        <span class="hljs-comment">// 基于Token不需要session</span>
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        <span class="hljs-comment">// 禁用缓存</span>
+        http.headers().cacheControl();
+        <span class="hljs-comment">// 添加JWT过滤器</span>
+        http.addFilter(<span class="hljs-keyword">new</span> JWTAuthenticationTokenFilter(authenticationManager()));
+    &#125;
+&#125;</code></pre></div>
+<h3 id="角色实体类-sysroleentity"><a class="markdownIt-Anchor" href="#角色实体类-sysroleentity"></a> 角色实体类 SysRoleEntity</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Data</span>
+<span class="hljs-meta">@TableName</span>(<span class="hljs-string">"sys_role"</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SysRoleEntity</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 角色ID</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-meta">@TableId</span>
+	<span class="hljs-keyword">private</span> Long roleId;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 角色名称</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> String roleName;
+&#125;</code></pre></div>
+<h3 id="自定义认证逻辑处理器-userauthenticationprovider"><a class="markdownIt-Anchor" href="#自定义认证逻辑处理器-userauthenticationprovider"></a> 自定义认证逻辑处理器 UserAuthenticationProvider</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserAuthenticationProvider</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AuthenticationProvider</span> </span>&#123;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> SelfUserDetailsService selfUserDetailsService;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> SysUserService sysUserService;
+    <span class="hljs-comment">//authentication 这个参数是哪里来的呢？</span>
+    <span class="hljs-comment">//我猜测是这样的：UsernamePasswordAuthenticationFilter 处理了从前台传入的账号密码，封装成一个实现了Authentication接口的UsernamePasswordAuthenticationToken类，此时这个账号密码尚未认证，所以没有权限。-&gt;调用ProviderManager类的authenticate方法处理Token-&gt;轮询在security配置里面注册好的登录逻辑处理类，检查是否支持当前token，找到之后进行处理。—&gt;于是，这个token就传进来了。</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Authentication <span class="hljs-title">authenticate</span><span class="hljs-params">(Authentication authentication)</span> <span class="hljs-keyword">throws</span> AuthenticationException </span>&#123;
+        <span class="hljs-comment">// 获取表单输入中返回的用户名</span>
+        String userName = (String) authentication.getPrincipal();
+        <span class="hljs-comment">// 获取表单中输入的密码</span>
+        String password = (String) authentication.getCredentials();
+        <span class="hljs-comment">// 查询用户是否存在</span>
+        SelfUserEntity userInfo = selfUserDetailsService.loadUserByUsername(userName);
+        <span class="hljs-keyword">if</span> (userInfo == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UsernameNotFoundException(<span class="hljs-string">"用户名不存在"</span>);
+        &#125;
+        <span class="hljs-comment">// 我们还要判断密码是否正确，这里我们的密码使用BCryptPasswordEncoder进行加密的</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">new</span> BCryptPasswordEncoder().matches(password, userInfo.getPassword())) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BadCredentialsException(<span class="hljs-string">"密码不正确"</span>);
+        &#125;
+        <span class="hljs-comment">// 还可以加一些其他信息的判断，比如用户账号已停用等判断</span>
+        <span class="hljs-keyword">if</span> (userInfo.getStatus().equals(<span class="hljs-string">"PROHIBIT"</span>))&#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> LockedException(<span class="hljs-string">"该用户已被冻结"</span>);
+        &#125;
+        <span class="hljs-comment">// 角色集合</span>
+        Set&lt;GrantedAuthority&gt; authorities = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        <span class="hljs-comment">// 查询用户角色</span>
+        <span class="hljs-comment">//一张表储存了用户id和他的所拥有的权限的id，另一张表储存了对应权限id的权限名。</span>
+        <span class="hljs-comment">//所以查出来是一列权限实体类</span>
+       
+        List&lt;SysRoleEntity&gt; sysRoleEntityList = sysUserService.selectSysRoleByUserId(userInfo.getUserId());
+        <span class="hljs-keyword">for</span> (SysRoleEntity sysRoleEntity: sysRoleEntityList)&#123;
+            authorities.add(<span class="hljs-keyword">new</span> SimpleGrantedAuthority(<span class="hljs-string">"ROLE_"</span> + sysRoleEntity.getRoleName()));
+        &#125;
+        userInfo.setAuthorities(authorities);
+        <span class="hljs-comment">// 进行登录</span>
+        <span class="hljs-comment">//上方所说的轮询并检测是否成功的标志就是看返回的是不是为null,不为null则表明认证成功。</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(userInfo, password, authorities);
+    &#125;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">supports</span><span class="hljs-params">(Class&lt;?&gt; authentication)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    &#125;
+&#125;</code></pre></div>
+<h3 id="查询用户是否存在-selfuserdetailsservice"><a class="markdownIt-Anchor" href="#查询用户是否存在-selfuserdetailsservice"></a> 查询用户是否存在 SelfUserDetailsService</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SelfUserDetailsService</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">UserDetailsService</span> </span>&#123;
+
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> SysUserService sysUserService;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 查询用户信息</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Author</span> Sans</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@CreateTime</span> 2019/9/13 17:23</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Param</span>  username  用户名</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Return</span> UserDetails SpringSecurity用户信息</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> SelfUserEntity <span class="hljs-title">loadUserByUsername</span><span class="hljs-params">(String username)</span> <span class="hljs-keyword">throws</span> UsernameNotFoundException </span>&#123;
+        <span class="hljs-comment">// 查询用户信息</span>
+        SysUserEntity sysUserEntity =sysUserService.selectUserByName(username);
+        <span class="hljs-keyword">if</span> (sysUserEntity!=<span class="hljs-keyword">null</span>)&#123;
+            <span class="hljs-comment">// 组装参数</span>
+            SelfUserEntity selfUserEntity = <span class="hljs-keyword">new</span> SelfUserEntity();
+            BeanUtils.copyProperties(sysUserEntity,selfUserEntity);
+            <span class="hljs-keyword">return</span> selfUserEntity;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">null</span>;
+    &#125;
+&#125;</code></pre></div>
+<h3 id="符合security标准的用户类-selfuserentity"><a class="markdownIt-Anchor" href="#符合security标准的用户类-selfuserentity"></a> 符合Security标准的用户类 SelfUserEntity</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Data</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SelfUserEntity</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span>, <span class="hljs-title">UserDetails</span> </span>&#123;
+
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> serialVersionUID = <span class="hljs-number">1L</span>;
+
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 用户ID</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> Long userId;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 用户名</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> String username;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 密码</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> String password;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 状态:NORMAL正常  PROHIBIT禁用</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> String status;
+
+
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 用户角色</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> Collection&lt;GrantedAuthority&gt; authorities;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 账户是否过期</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> isAccountNonExpired = <span class="hljs-keyword">false</span>;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 账户是否被锁定</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> isAccountNonLocked = <span class="hljs-keyword">false</span>;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 证书是否过期</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> isCredentialsNonExpired = <span class="hljs-keyword">false</span>;
+	<span class="hljs-comment">/**</span>
+<span class="hljs-comment">	 * 账户是否有效</span>
+<span class="hljs-comment">	 */</span>
+	<span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> isEnabled = <span class="hljs-keyword">true</span>;
+
+
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> Collection&lt;GrantedAuthority&gt; <span class="hljs-title">getAuthorities</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> authorities;
+	&#125;
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isAccountNonExpired</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> isAccountNonExpired;
+	&#125;
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isAccountNonLocked</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> isAccountNonLocked;
+	&#125;
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isCredentialsNonExpired</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> isCredentialsNonExpired;
+	&#125;
+	<span class="hljs-meta">@Override</span>
+	<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isEnabled</span><span class="hljs-params">()</span> </span>&#123;
+		<span class="hljs-keyword">return</span> isEnabled;
+	&#125;
+&#125;</code></pre></div>
+<h3 id="登录成功处理类-userloginsuccesshandler"><a class="markdownIt-Anchor" href="#登录成功处理类-userloginsuccesshandler"></a> 登录成功处理类 UserLoginSuccessHandler</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserLoginSuccessHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AuthenticationSuccessHandler</span> </span>&#123;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 登录成功返回结果</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Author</span> Sans</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@CreateTime</span> 2019/10/3 9:27</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onAuthenticationSuccess</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Authentication authentication)</span></span>&#123;
+        <span class="hljs-comment">// 组装JWT</span>
+        <span class="hljs-comment">//在认证处理器部分，将userinfo传入给UsernamePasswordAuthenticationToken作为principal</span>
+        SelfUserEntity selfUserEntity =  (SelfUserEntity) authentication.getPrincipal();
+        String token = JWTTokenUtil.createAccessToken(selfUserEntity);
+        log.info(selfUserEntity.toString());
+        token = JWTConfig.tokenPrefix + token;
+        <span class="hljs-comment">// 封装返回参数</span>
+        Map&lt;String,Object&gt; resultData = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        resultData.put(<span class="hljs-string">"code"</span>,<span class="hljs-string">"200"</span>);
+        resultData.put(<span class="hljs-string">"msg"</span>, <span class="hljs-string">"登录成功"</span>);
+        resultData.put(<span class="hljs-string">"token"</span>,token);
+        ResultUtil.responseJson(response,resultData);
+    &#125;
+&#125;</code></pre></div>
+<h3 id="与jwt有关的工具类-jwttokenutil"><a class="markdownIt-Anchor" href="#与jwt有关的工具类-jwttokenutil"></a> 与JWT有关的工具类 JWTTokenUtil</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JWTTokenUtil</span> </span>&#123;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 私有化构造器</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-title">JWTTokenUtil</span><span class="hljs-params">()</span></span>&#123;&#125;
+
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * 生成Token</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Author</span> Sans</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@CreateTime</span> 2019/10/2 12:16</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Param</span>  selfUserEntity 用户安全实体</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Return</span> Token</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">createAccessToken</span><span class="hljs-params">(SelfUserEntity selfUserEntity)</span></span>&#123;
+        <span class="hljs-comment">// 登陆成功生成JWT</span>
+        String token = Jwts.builder()
+                <span class="hljs-comment">// 放入用户名和用户ID</span>
+                .setId(selfUserEntity.getUserId()+<span class="hljs-string">""</span>)
+                <span class="hljs-comment">// 主题</span>
+                .setSubject(selfUserEntity.getUsername())
+                <span class="hljs-comment">// 签发时间</span>
+                .setIssuedAt(<span class="hljs-keyword">new</span> Date())
+                <span class="hljs-comment">// 签发者</span>
+                .setIssuer(<span class="hljs-string">"sans"</span>)
+                <span class="hljs-comment">// 自定义属性 放入用户拥有权限</span>
+            	<span class="hljs-comment">//重申一遍，多角色的时候，这个属性长[&#123;"authority":"ROLE_USER"&#125;,&#123;"authority":"ROLE_ADMIN"&#125;]这样，表明他有两个角色</span>
+                .claim(<span class="hljs-string">"authorities"</span>, JSON.toJSONString(selfUserEntity.getAuthorities()))
+                <span class="hljs-comment">// 失效时间</span>
+                .setExpiration(<span class="hljs-keyword">new</span> Date(System.currentTimeMillis() + JWTConfig.expiration))
+                <span class="hljs-comment">// 签名算法和密钥</span>
+                .signWith(SignatureAlgorithm.HS512, JWTConfig.secret)
+                .compact();
+        log.info(JSON.toJSONString(selfUserEntity.getAuthorities()));
+        <span class="hljs-keyword">return</span> token;
+    &#125;
+&#125;</code></pre></div>
+<h2 id="5-jwt数据库-鉴权部分"><a class="markdownIt-Anchor" href="#5-jwt数据库-鉴权部分"></a> 5、JWT+数据库 鉴权部分</h2>
+<p>上图</p>
+<img src="/img/image-20200629141557755.png" srcset="/img/loading.gif" alt="image-20200629141557755" style="zoom:80%;" />
+<p>用到的类</p>
+<h3 id="haspermission-鉴权类-userpermissionevaluator"><a class="markdownIt-Anchor" href="#haspermission-鉴权类-userpermissionevaluator"></a> hasPermission 鉴权类 UserPermissionEvaluator</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Component</span>
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserPermissionEvaluator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">PermissionEvaluator</span> </span>&#123;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> SysUserService sysUserService;
+    <span class="hljs-comment">/**</span>
+<span class="hljs-comment">     * hasPermission鉴权方法</span>
+<span class="hljs-comment">     * 这里仅仅判断PreAuthorize注解中的权限表达式</span>
+<span class="hljs-comment">     * 实际中可以根据业务需求设计数据库通过targetUrl和permission做更复杂鉴权</span>
+<span class="hljs-comment">     * 当然targetUrl不一定是URL可以是数据Id还可以是管理员标识等,这里根据需求自行设计</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Author</span> Sans</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@CreateTime</span> 2019/10/6 18:25</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Param</span>  authentication  用户身份(在使用hasPermission表达式时Authentication参数默认会自动带上)</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Param</span>  targetUrl  请求路径</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Param</span>  permission 请求路径权限</span>
+<span class="hljs-comment">     * <span class="hljs-doctag">@Return</span> boolean 是否通过</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-comment">//传入用户安全信息、目标url、需要的权限</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasPermission</span><span class="hljs-params">(Authentication authentication, Object targetUrl, Object permission)</span> </span>&#123;
+        <span class="hljs-comment">// 获取用户信息</span>
+        SelfUserEntity selfUserEntity =(SelfUserEntity) authentication.getPrincipal();
+        Collection&lt;GrantedAuthority&gt; authorities = selfUserEntity.getAuthorities();
+        <span class="hljs-keyword">for</span> (GrantedAuthority authority : authorities) &#123;
+            log.info(authority.getAuthority());
+        &#125;
+        <span class="hljs-comment">// 查询用户权限(这里可以将权限放入缓存中提升效率)</span>
+        Set&lt;String&gt; permissions = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        <span class="hljs-comment">//role，权限表，表示有什么权限</span>
+        <span class="hljs-comment">//menu，功能表，表示能做什么</span>
+        <span class="hljs-comment">//role_menu表，表示什么权限能做什么事情</span>
+        <span class="hljs-comment">//user，用户表，表示你是谁</span>
+        <span class="hljs-comment">//user_role表，表示你有什么权限</span>
+        <span class="hljs-comment">//          SELECT DISTINCT m.* FROM sys_user_role ur</span>
+        <span class="hljs-comment">//			LEFT JOIN sys_role_menu rm ON ur.role_id = rm.role_id</span>
+        <span class="hljs-comment">//			LEFT JOIN sys_menu m ON rm.menu_id = m.menu_id</span>
+        <span class="hljs-comment">//		    WHERE ur.user_id = #&#123;userId&#125;</span>
+        <span class="hljs-comment">//通过用户的id，查询他能干什么。</span>
+        List&lt;SysMenuEntity&gt; sysMenuEntityList = sysUserService.selectSysMenuByUserId(selfUserEntity.getUserId());
+        <span class="hljs-keyword">for</span> (SysMenuEntity sysMenuEntity:sysMenuEntityList) &#123;
+            permissions.add(sysMenuEntity.getPermission());
+        &#125;
+        <span class="hljs-comment">// 权限对比</span>
+        <span class="hljs-keyword">if</span> (permissions.contains(permission.toString()))&#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        &#125;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasPermission</span><span class="hljs-params">(Authentication authentication, Serializable targetId, String targetType, Object permission)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre></div>
+<p><strong>详细代码与注释</strong>：<a href="https://gitee.com/gukkibokou/spring-boot-security-demo" target="_blank" rel="noopener">Gitee</a></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaWeb%E5%BC%80%E5%8F%91/">JavaWeb开发</a>
+                    
+                      <a class="hover-with-bg" href="/tags/SpringSecurity/">SpringSecurity</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JWT/">JWT</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/p/6f7d03df.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JWT+Ajax验证</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/p/4119c141.html">
+                        <span class="hidden-mobile">博创4412开发板移植最新的ssh</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.defer = false
+      s.setAttribute('repo', 'hukkall/comment');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      var e = document.getElementsByTagName('script')[0];
+      e.parentNode.insertBefore(s, e);
+    }
+    createObserver(loadUtterances, 'comments')
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "JWT学习&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-172063258-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="AaJal">
+  <meta name="keywords" content="">
+  <title>JWT+Ajax验证 - FouRod</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/nord.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="FouRod" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>FouRod</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/post_banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-30 00:28">
+      2020年6月30日 凌晨
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      73
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h1>
+<p>​	昨天对整个Spring Security 的鉴权和授权流程有了个大概的了解，作为一个对什么都想自定义的人，肯定要去尝试一波自定义自己的权限管理。</p>
+<p>具体代码可以看：<a href="https://gitee.com/gukkibokou/spring_sql" target="_blank" rel="noopener">Gitee</a> <a href="https://github.com/hukkall/security_jwt_json" target="_blank" rel="noopener">Github</a></p>
+<h1 id="技术栈"><a class="markdownIt-Anchor" href="#技术栈"></a> 技术栈</h1>
+<ul>
+<li>Spring Boot</li>
+<li>Spring Security</li>
+<li>Json Web Token</li>
+<li>MyBatis-Plus</li>
+</ul>
+<h1 id="系统流程"><a class="markdownIt-Anchor" href="#系统流程"></a> 系统流程</h1>
+<h2 id="授权"><a class="markdownIt-Anchor" href="#授权"></a> 授权</h2>
+<img src="/img/image-20200701162121415.png" srcset="/img/loading.gif" alt="image-20200701162121415" style="zoom:80%;" />
+<h2 id="鉴权"><a class="markdownIt-Anchor" href="#鉴权"></a> 鉴权</h2>
+<img src="/img/image-20200701165911025.png" srcset="/img/loading.gif" alt="image-20200701165911025" style="zoom:80%;" />
+<h1 id="操作流程"><a class="markdownIt-Anchor" href="#操作流程"></a> 操作流程</h1>
+<h2 id="建表"><a class="markdownIt-Anchor" href="#建表"></a> 建表</h2>
+<div class="hljs"><pre><code class="hljs mysql">&#x2F;*
+ Navicat Premium Data Transfer
+
+ Source Server         : LOCA
+ Source Server Type    : MySQL
+ Source Server Version : 80019
+ Source Host           : localhost:3306
+ Source Schema         : boot_test
+
+ Target Server Type    : MySQL
+ Target Server Version : 80019
+ File Encoding         : 65001
+
+ Date: 01&#x2F;07&#x2F;2020 17:00:45
+*&#x2F;
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS &#x3D; 0;
+
+-- ----------------------------
+-- Table structure for permission_role
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;permission_role&#96;;
+CREATE TABLE &#96;permission_role&#96;  (
+  &#96;PREMISSION_ID&#96; int(0) NOT NULL,
+  &#96;ROLE_ID&#96; int(0) NOT NULL,
+  INDEX &#96;PREMISSION_ID&#96;(&#96;PREMISSION_ID&#96;) USING BTREE,
+  INDEX &#96;ROLE_ID1&#96;(&#96;ROLE_ID&#96;) USING BTREE,
+  CONSTRAINT &#96;PREMISSION_ID&#96; FOREIGN KEY (&#96;PREMISSION_ID&#96;) REFERENCES &#96;premission&#96; (&#96;ID&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT &#96;ROLE_ID1&#96; FOREIGN KEY (&#96;ROLE_ID&#96;) REFERENCES &#96;role&#96; (&#96;ROLE_ID&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;
+
+-- ----------------------------
+-- Records of permission_role
+-- ----------------------------
+INSERT INTO &#96;permission_role&#96; VALUES (1, 1);
+INSERT INTO &#96;permission_role&#96; VALUES (2, 2);
+
+-- ----------------------------
+-- Table structure for premission
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;premission&#96;;
+CREATE TABLE &#96;premission&#96;  (
+  &#96;ID&#96; int(0) NOT NULL,
+  &#96;PERMISSION&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (&#96;ID&#96;) USING BTREE
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;
+
+-- ----------------------------
+-- Records of premission
+-- ----------------------------
+INSERT INTO &#96;premission&#96; VALUES (1, &#39;check:edit:delete&#39;);
+INSERT INTO &#96;premission&#96; VALUES (2, &#39;view&#39;);
+
+-- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;role&#96;;
+CREATE TABLE &#96;role&#96;  (
+  &#96;ROLE_ID&#96; int(0) NOT NULL,
+  &#96;ROLE_NAME&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (&#96;ROLE_ID&#96;) USING BTREE
+) ENGINE &#x3D; InnoDB CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO &#96;role&#96; VALUES (1, &#39;admin&#39;);
+INSERT INTO &#96;role&#96; VALUES (2, &#39;user&#39;);
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;user&#96;;
+CREATE TABLE &#96;user&#96;  (
+  &#96;ID&#96; bigint(0) NOT NULL AUTO_INCREMENT,
+  &#96;NAME&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  &#96;PASSWORD&#96; varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (&#96;ID&#96;) USING BTREE
+) ENGINE &#x3D; InnoDB AUTO_INCREMENT &#x3D; 1 CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO &#96;user&#96; VALUES (1, &#39;admin&#39;, &#39;$2a$10$4tCuODS2p98tvk8EWtlhd.Mdbk1mXPwbruD4Y2VL.STIaP2Avz5bi&#39;);
+INSERT INTO &#96;user&#96; VALUES (2, &#39;user&#39;, &#39;$2a$10$UiSHiNwZdZ2mUSOf7bNCfONRNhMdwAJ37dJ9YVTjPvTfPPKWoLiuy&#39;);
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS &#96;user_role&#96;;
+CREATE TABLE &#96;user_role&#96;  (
+  &#96;USER_ID&#96; bigint(0) NOT NULL,
+  &#96;ROLE_ID&#96; int(0) NOT NULL,
+  &#96;ID&#96; int(0) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (&#96;ID&#96;) USING BTREE,
+  INDEX &#96;USER_ID&#96;(&#96;USER_ID&#96;) USING BTREE,
+  INDEX &#96;ROLE_ID&#96;(&#96;ROLE_ID&#96;) USING BTREE,
+  CONSTRAINT &#96;ROLE_ID&#96; FOREIGN KEY (&#96;ROLE_ID&#96;) REFERENCES &#96;role&#96; (&#96;ROLE_ID&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT &#96;USER_ID&#96; FOREIGN KEY (&#96;USER_ID&#96;) REFERENCES &#96;user&#96; (&#96;ID&#96;) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE &#x3D; InnoDB AUTO_INCREMENT &#x3D; 1 CHARACTER SET &#x3D; utf8 COLLATE &#x3D; utf8_general_ci ROW_FORMAT &#x3D; Dynamic;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO &#96;user_role&#96; VALUES (1, 1, 1);
+INSERT INTO &#96;user_role&#96; VALUES (2, 2, 2);
+
+SET FOREIGN_KEY_CHECKS &#x3D; 1;</code></pre></div>
+<h2 id="代码生成"><a class="markdownIt-Anchor" href="#代码生成"></a> 代码生成</h2>
+<p>​	这里我使用了Mybatis-Plus的代码生成器</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-comment">//1、全局配置</span>
+        GlobalConfig config = <span class="hljs-keyword">new</span> GlobalConfig();
+        String projectPath = System.getProperty(<span class="hljs-string">"user.dir"</span>);
+        config.setActiveRecord(<span class="hljs-keyword">true</span>)<span class="hljs-comment">//开启AR模式</span>
+                .setAuthor(<span class="hljs-string">""</span>)<span class="hljs-comment">//设置作者</span>
+                .setOutputDir(projectPath + <span class="hljs-string">"/src/main/java"</span>)<span class="hljs-comment">//生成路径(一般在此项目的src/main/java下)</span>
+                .setFileOverride(<span class="hljs-keyword">true</span>)<span class="hljs-comment">//第二次生成会把第一次生成的覆盖掉</span>
+                <span class="hljs-comment">//.setSwagger2(true)//实体属性 Swagger2 注解</span>
+                .setIdType(IdType.AUTO)<span class="hljs-comment">//主键策略</span>
+                .setServiceName(<span class="hljs-string">"%sService"</span>)<span class="hljs-comment">//生成的service接口名字首字母是否为I，这样设置就没有I</span>
+                .setBaseResultMap(<span class="hljs-keyword">true</span>)<span class="hljs-comment">//生成resultMap</span>
+                .setBaseColumnList(<span class="hljs-keyword">true</span>);<span class="hljs-comment">//在xml中生成基础列</span>
+        <span class="hljs-comment">//2、数据源配置</span>
+        DataSourceConfig dataSourceConfig = <span class="hljs-keyword">new</span> DataSourceConfig();
+        dataSourceConfig.setDbType(DbType.MYSQL)<span class="hljs-comment">//数据库类型</span>
+                .setDriverName(<span class="hljs-string">"com.mysql.cj.jdbc.Driver"</span>)
+                .setUrl(<span class="hljs-string">"jdbc:mysql://localhost:3306/xiaoluo?useSSL=true&amp;serverTimezone=GMT"</span>)
+                .setUsername(<span class="hljs-string">"root"</span>)
+                .setPassword(<span class="hljs-string">"你的密码"</span>);
+        <span class="hljs-comment">//3、策略配置</span>
+        StrategyConfig strategyConfig = <span class="hljs-keyword">new</span> StrategyConfig();
+        strategyConfig.setCapitalMode(<span class="hljs-keyword">true</span>)<span class="hljs-comment">//开启全局大写命名</span>
+                .setNaming(NamingStrategy.no_change)<span class="hljs-comment">//表名映射到实体的命名策略(下划线到驼峰)</span>
+                <span class="hljs-comment">//表字段映射属性名策略(未指定按naming)</span>
+                .setColumnNaming(NamingStrategy.no_change)
+                <span class="hljs-comment">//.setTablePrefix("tb_")//表名前缀</span>
+                <span class="hljs-comment">//.setSuperEntityClass("你自己的父类实体,没有就不用设置!")</span>
+                <span class="hljs-comment">//.setSuperEntityColumns("id");//写于父类中的公共字段</span>
+                <span class="hljs-comment">//.setSuperControllerClass("自定义继承的Controller类全称，带包名,没有就不用设置!")</span>
+                .setRestControllerStyle(<span class="hljs-keyword">true</span>) <span class="hljs-comment">//生成 @RestController 控制器</span>
+                .setEntityLombokModel(<span class="hljs-keyword">true</span>);<span class="hljs-comment">//使用lombok</span>
+        <span class="hljs-comment">//4、包名策略配置</span>
+        PackageConfig packageConfig = <span class="hljs-keyword">new</span> PackageConfig();
+        packageConfig.setParent(<span class="hljs-string">"com.gukki"</span>)<span class="hljs-comment">//设置包名的parent</span>
+                .setMapper(<span class="hljs-string">"mapper"</span>)
+
+                .setService(<span class="hljs-string">"service"</span>)
+                .setController(<span class="hljs-string">"controller"</span>)
+                .setEntity(<span class="hljs-string">"entity"</span>)
+                .setXml(<span class="hljs-string">"mapper"</span>);<span class="hljs-comment">//设置xml文件的目录</span>
+        <span class="hljs-comment">//5、整合配置</span>
+        AutoGenerator autoGenerator = <span class="hljs-keyword">new</span> AutoGenerator();
+        autoGenerator.setGlobalConfig(config)
+                .setDataSource(dataSourceConfig)
+                .setStrategy(strategyConfig)
+                .setPackageInfo(packageConfig);
+        <span class="hljs-comment">//6、执行</span>
+        autoGenerator.execute();</code></pre></div>
+<p>执行即可自动生成代码</p>
+<h2 id="编写jwt工具类-jwtutil"><a class="markdownIt-Anchor" href="#编写jwt工具类-jwtutil"></a> 编写JWT工具类 JWTUtil</h2>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JWTUtil</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">Serializable</span> </span>&#123;
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-keyword">long</span> JWT_TOKEN_VALIDITY = <span class="hljs-number">5</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String key = <span class="hljs-string">"imakeytolong"</span>;
+
+    <span class="hljs-comment">//第二个参数意思是指定用什么方法处理这段token</span>
+    <span class="hljs-comment">//换言之就是调用什么方法去获取这段token里面的值</span>
+    <span class="hljs-comment">//由T决定返回类型</span>
+    <span class="hljs-comment">//指定好方法，期望将输入的token 转换为输出值</span>
+    <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        猜测resolve.apply等价于：&#123;claims-&gt;传入的函数体&#125;</span>
+<span class="hljs-comment">        即，T为函数的返回类型，Claim为传入的函数类型。</span>
+<span class="hljs-comment">     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; <span class="hljs-function">T <span class="hljs-title">getClaimFromToken</span><span class="hljs-params">(String token, Function&lt;Claims, T&gt; resolve)</span> </span>&#123;
+        Claims claims = getAllClaims(token);
+        <span class="hljs-keyword">return</span> resolve.apply(claims);
+    &#125;
+    <span class="hljs-comment">//注意，这里要用valueOf方法，我在这里出过一次问题。</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Long <span class="hljs-title">getUserID</span><span class="hljs-params">(String token)</span></span>&#123;
+        <span class="hljs-keyword">return</span> Long.valueOf(getClaimFromToken(token,Claims::getId));
+    &#125;
+    <span class="hljs-comment">//Get All Claims</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Claims <span class="hljs-title">getAllClaims</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+    &#125;
+    <span class="hljs-comment">//获取JWT的载荷部分</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getAClaim</span><span class="hljs-params">(String token,String claimName)</span></span>&#123;
+        <span class="hljs-keyword">return</span> getAllClaims(token).get(claimName).toString();
+    &#125;
+    <span class="hljs-comment">//获取主题名，也就是用户名</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">getUserNameFromToken</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> getClaimFromToken(token, Claims::getSubject);
+    &#125;
+
+    <span class="hljs-comment">//获得token过期时间</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Date <span class="hljs-title">getExpirationDate</span><span class="hljs-params">(String token)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> getClaimFromToken(token, Claims::getExpiration);
+    &#125;
+
+    <span class="hljs-comment">//查询token 是否过期</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> Boolean <span class="hljs-title">isExpired</span><span class="hljs-params">(String token)</span> </span>&#123;
+        Date date = getExpirationDate(token);
+        <span class="hljs-keyword">return</span> date.before(<span class="hljs-keyword">new</span> Date());
+    &#125;
+
+    <span class="hljs-comment">//生成一串token给用户</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">genKey</span><span class="hljs-params">(SecurityUser details)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> doGenkey(details);
+    &#125;
+
+    <span class="hljs-comment">//生成</span>
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> String <span class="hljs-title">doGenkey</span><span class="hljs-params">(SecurityUser details)</span> </span>&#123;
+        System.out.println(details.getId());
+        <span class="hljs-keyword">return</span> Jwts.builder()
+                .setId(String.valueOf(details.getId()))
+                .claim(<span class="hljs-string">"authorities"</span>, JSON.toJSONString(details.getAuthorities()))
+                .setSubject(details.getUsername())
+                .setIssuedAt(<span class="hljs-keyword">new</span> Date(System.currentTimeMillis()))
+                .setExpiration(<span class="hljs-keyword">new</span> Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * <span class="hljs-number">100</span>))
+                .signWith(SignatureAlgorithm.HS256, key).compact();
+    &#125;
+
+    <span class="hljs-comment">//校验</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Boolean <span class="hljs-title">verifyToken</span><span class="hljs-params">(String token, UserDetails details)</span> </span>&#123;
+        <span class="hljs-keyword">final</span> String name = details.getUsername();
+        <span class="hljs-keyword">return</span> (name.equals(getUserNameFromToken(token)) &amp;&amp; !isExpired(token));
+    &#125;
+&#125;</code></pre></div>
+<h2 id="编写返回结果类-resutil"><a class="markdownIt-Anchor" href="#编写返回结果类-resutil"></a> 编写返回结果类 ResUtil</h2>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ResUtil</span> </span>&#123;
+    <span class="hljs-comment">//转换为JSON输出</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ResponseJSON</span><span class="hljs-params">(ServletResponse resp, Map&lt;String, Object&gt; resultMap)</span> </span>&#123;
+        PrintWriter pw = <span class="hljs-keyword">null</span>;
+        <span class="hljs-keyword">try</span> &#123;
+            resp.setCharacterEncoding(<span class="hljs-string">"UTF-8"</span>);
+            resp.setContentType(<span class="hljs-string">"application/json"</span>);
+            pw = resp.getWriter();
+            pw.println(JSON.toJSONString(resultMap));
+        &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+            log.error(e.getMessage());
+        &#125; <span class="hljs-keyword">finally</span> &#123;
+            <span class="hljs-keyword">if</span> (pw != <span class="hljs-keyword">null</span>) &#123;
+                pw.flush();
+                pw.close();
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Map&lt;String, Object&gt; <span class="hljs-title">Success</span><span class="hljs-params">()</span> </span>&#123;
+        Map&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-string">"result"</span>, <span class="hljs-string">"Success"</span>);
+        map.put(<span class="hljs-string">"code"</span>, <span class="hljs-number">200</span>);
+        <span class="hljs-keyword">return</span> map;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Map&lt;String, Object&gt; <span class="hljs-title">Fail</span><span class="hljs-params">()</span> </span>&#123;
+        Map&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-string">"result"</span>, <span class="hljs-string">"Fail"</span>);
+        map.put(<span class="hljs-string">"code"</span>, <span class="hljs-number">500</span>);
+        <span class="hljs-keyword">return</span> map;
+    &#125;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Map&lt;String, Object&gt; <span class="hljs-title">CustomResult</span><span class="hljs-params">(<span class="hljs-keyword">int</span> code, String msg)</span> </span>&#123;
+        HashMap&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-string">"result"</span>, msg);
+        map.put(<span class="hljs-string">"code"</span>, code);
+        <span class="hljs-keyword">return</span> map;
+    &#125;
+&#125;</code></pre></div>
+<h2 id="登录流程"><a class="markdownIt-Anchor" href="#登录流程"></a> 登录流程</h2>
+<h3 id="json认证处理类-jsonauthfilter"><a class="markdownIt-Anchor" href="#json认证处理类-jsonauthfilter"></a> JSON认证处理类 JSONAuthFilter</h3>
+<p>​	为了替换掉自带的表单提交，我们需要重写<code>UsernamePasswordAuthenticationFilter</code>类里的<code>attemptAuthentication</code>方法。</p>
+<p>我利用<code>FastJson</code>将提交过来的JSON转换为一个Map，从里面提取到用户名、密码等信息，组装成一个符合Security标准的认证类并请求认证。注意，此时密码和用户名都没认证，所以这个用户的权限信息是<code>null</code>。这些鉴定的事情是交给我自定义的认证类干的。</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Component</span>
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JSONAuthFilter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">UsernamePasswordAuthenticationFilter</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setAuthenticationManager</span><span class="hljs-params">(AuthenticationManager authenticationManager)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>.setAuthenticationManager(authenticationManager);
+    &#125;
+
+    <span class="hljs-meta">@Autowired</span>
+    LoginSuccessHandler successHandler;
+    <span class="hljs-meta">@Autowired</span>
+    LoginFailureHandler failureHandler;
+    <span class="hljs-meta">@Autowired</span>
+    AccessDenied accessDenied;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Authentication <span class="hljs-title">attemptAuthentication</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="hljs-keyword">throws</span> AuthenticationException </span>&#123;
+        log.info(<span class="hljs-string">"进入了JSON登陆许可校验"</span>);
+        <span class="hljs-keyword">if</span> (request.getContentType().equals(MediaType.APPLICATION_JSON_UTF8_VALUE) || request.getContentType().equals(MediaType.APPLICATION_JSON_VALUE)) &#123;
+            UsernamePasswordAuthenticationToken token = <span class="hljs-keyword">null</span>;
+            <span class="hljs-keyword">try</span>(InputStream inputStream = request.getInputStream()) &#123;
+                Map&lt;String,String&gt; map = JSON.parseObject(inputStream, Charset.defaultCharset(),Map<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+                token = <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(map.get(<span class="hljs-string">"username"</span>),map.get(<span class="hljs-string">"password"</span>));
+                <span class="hljs-comment">//定义好这个过滤器所处理的url</span>
+                setFilterProcessesUrl(<span class="hljs-string">"/login"</span>);
+                <span class="hljs-comment">//定义好登陆失败的处理类</span>
+                setAuthenticationFailureHandler(failureHandler);
+                <span class="hljs-comment">//定义好登录成功的处理类，这很重要，因为我这里装配JWT的地方就是这个处理类。</span>
+                setAuthenticationSuccessHandler(successHandler);
+            &#125; <span class="hljs-keyword">catch</span> (IOException e) &#123;
+                logger.error(e.getMessage());
+                token = <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(<span class="hljs-string">""</span>,<span class="hljs-string">""</span>);
+            &#125;<span class="hljs-keyword">finally</span> &#123;
+                setDetails(request,token);
+                <span class="hljs-comment">//请求认证，这就调用了我的自定义的认证类。</span>
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.getAuthenticationManager().authenticate(token);
+            &#125;
+        &#125;
+        <span class="hljs-keyword">else</span>&#123;
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">super</span>.attemptAuthentication(request,response);
+        &#125;
+    &#125;
+&#125;</code></pre></div>
+<h3 id="自定义的认证类-customauthprovider"><a class="markdownIt-Anchor" href="#自定义的认证类-customauthprovider"></a> 自定义的认证类 CustomAuthProvider</h3>
+<p>​	得到上面传来的用户名和密码，我们就需要从数据库里面拿到对应用户名的个人信息并进行比对了，匹配成功之后我们就可以去认证成功类装配JWT了。若想实现自定义认证，需要实现<code>AuthenticationProvider</code>这个类下的<code>authenticate</code>方法</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomAuthProvider</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AuthenticationProvider</span> </span>&#123;
+    <span class="hljs-meta">@Autowired</span>
+    CustomUserDetailService userDetailService;
+    <span class="hljs-meta">@Autowired</span>
+    UserRoleService userRoleService;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> Authentication <span class="hljs-title">authenticate</span><span class="hljs-params">(Authentication authentication)</span> <span class="hljs-keyword">throws</span> AuthenticationException </span>&#123;
+        log.info(<span class="hljs-string">"进入了登录监测"</span>);
+        String name = (String) authentication.getPrincipal();
+        String password = (String) authentication.getCredentials();
+        SecurityUser user = userDetailService.loadUserByUsername(name);
+        log.info(user.toString());
+        <span class="hljs-keyword">if</span> (user == <span class="hljs-keyword">null</span>) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> UsernameNotFoundException(<span class="hljs-string">"未找到用户名"</span>);
+        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">new</span> BCryptPasswordEncoder().matches(password, user.getPassword())) &#123;
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> BadCredentialsException(<span class="hljs-string">"密码错误"</span>);
+        &#125;
+        <span class="hljs-comment">// 获取角色列表</span>
+        HashSet&lt;GrantedAuthority&gt; authorities = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        <span class="hljs-comment">/*</span>
+<span class="hljs-comment">        	SELECT</span>
+<span class="hljs-comment">            role.ROLE_ID,</span>
+<span class="hljs-comment">            role.ROLE_NAME</span>
+<span class="hljs-comment">        FROM</span>
+<span class="hljs-comment">            role</span>
+<span class="hljs-comment">                LEFT JOIN</span>
+<span class="hljs-comment">            user_role</span>
+<span class="hljs-comment">            ON</span>
+<span class="hljs-comment">                role.ROLE_ID = user_role.ROLE_ID</span>
+<span class="hljs-comment">        WHERE</span>
+<span class="hljs-comment">            user_role.USER_ID = #&#123;id&#125;</span>
+<span class="hljs-comment">        */</span>
+        List&lt;Role&gt; list = userRoleService.getRoleByID(user.getId());
+        <span class="hljs-comment">//Lambda 表达式 将获取到的角色处理之后放入用户信息中的权限组</span>
+        list.forEach(userRole -&gt; authorities.add(<span class="hljs-keyword">new</span> SimpleGrantedAuthority(<span class="hljs-string">"ROLE_"</span> + userRole.getRoleName())));
+        user.setAuthorities(authorities);
+        <span class="hljs-comment">//认证成功之后返回一个充满了用户信息的类，以及他所有的权限信息。</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(user, <span class="hljs-keyword">null</span>, authorities);
+    &#125;
+
+    <span class="hljs-comment">//其实这里可以做一些判断，判断传入的认证类是否被这个所支持。</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">supports</span><span class="hljs-params">(Class&lt;?&gt; authentication)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    &#125;
+&#125;</code></pre></div>
+<h3 id="自定义认证成功类-loginsuccesshandler"><a class="markdownIt-Anchor" href="#自定义认证成功类-loginsuccesshandler"></a> 自定义认证成功类 LoginSuccessHandler</h3>
+<p>​	这个类功能很简单，如果认证成功之后认证类会传回一个充满个人信息的认证类，我们将这个类组装成一个JWT，并且返回给用户。</p>
+<p>若想实现这个功能，需实现<code>AuthenticationSuccessHandler</code>下的<code>onAuthenticationSuccess</code>方法</p>
+<div class="hljs"><pre><code class="hljs java">
+<span class="hljs-meta">@Component</span>
+<span class="hljs-meta">@Slf</span>4j
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoginSuccessHandler</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">AuthenticationSuccessHandler</span> </span>&#123;
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onAuthenticationSuccess</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Authentication authentication)</span> <span class="hljs-keyword">throws</span> IOException, ServletException </span>&#123;
+        SecurityUser user = (SecurityUser) authentication.getPrincipal();
+        log.info(user.toString());
+        String token = JWTUtil.genKey(user);
+        HashMap&lt;String, Object&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();
+        map.put(<span class="hljs-string">"token"</span>,token);
+        ResUtil.ResponseJSON(response,map);
+    &#125;
+&#125;</code></pre></div>
+<p>这样的话，用户就能拿到他的token了。</p>
+<h3 id="注册到spring-security-securityconfig"><a class="markdownIt-Anchor" href="#注册到spring-security-securityconfig"></a> 注册到Spring Security SecurityConfig</h3>
+<p>​	写完这些类还不算完，需要将其注册到Security的配置里面去。</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableWebSecurity</span>
+<span class="hljs-meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="hljs-keyword">true</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WebSecurityConfigurerAdapter</span> </span>&#123;
+    <span class="hljs-meta">@Autowired</span>
+    JSONAuthFilter filter;
+    ...
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        ...
+        http.addFilterAt(filter, UsernamePasswordAuthenticationFilter<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+    &#125;
+&#125;</code></pre></div>
+<p>登录的流程就差不多了，可以看下结果：</p>
+<p><img src="/img/image-20200701180435010.png" srcset="/img/loading.gif" alt="image-20200701180435010" /></p>
+<h2 id="鉴权流程"><a class="markdownIt-Anchor" href="#鉴权流程"></a> 鉴权流程</h2>
+<h3 id="token认证类-jwtauthfilter"><a class="markdownIt-Anchor" href="#token认证类-jwtauthfilter"></a> Token认证类 JWTAuthFilter</h3>
+<p>​	由于JWT是一种无状态的应用授权方式，即，服务器不保存用户信息，而是用户每次访问的时候都要带上JWT。所以需要一个类去获取到请求头上的Token并进行解析与认证。需要继承<code>BasicAuthenticationFilter</code>并重写<code>doFilterInternal</code>方法。</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-comment">//认证</span>
+<span class="hljs-comment">//流程：检查请求头有无认证信息，有-&gt;从Token中获取用户信息，获取角色组-&gt;组装成一个用户信息类（继承了UserDetails）—&gt;封装成一个认证类-&gt;提交至安全上下文。</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">JWTAuthFilter</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">BasicAuthenticationFilter</span> </span>&#123;
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">JWTAuthFilter</span><span class="hljs-params">(AuthenticationManager manager)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>(manager);
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">doFilterInternal</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)</span> <span class="hljs-keyword">throws</span> ServletException, IOException </span>&#123;
+        log.info(<span class="hljs-string">"进入了Token认证"</span>);
+        String header = request.getHeader(<span class="hljs-string">"Authorization"</span>);
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">null</span> != header &amp;&amp; header.startsWith(<span class="hljs-string">"Bearer "</span>)) &#123;
+            String token = header.substring(<span class="hljs-number">7</span>);
+
+            <span class="hljs-comment">//Get name</span>
+            String name = JWTUtil.getUserNameFromToken(token);
+            <span class="hljs-comment">//Get ID</span>
+            Long ID = JWTUtil.getUserID(token);
+            <span class="hljs-comment">//获取角色</span>
+            <span class="hljs-keyword">if</span> (!name.isEmpty() &amp;&amp; (ID != <span class="hljs-keyword">null</span>)) &#123;
+                <span class="hljs-keyword">try</span> &#123;
+                    List&lt;GrantedAuthority&gt; authorityList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+                    String authority = JWTUtil.getAClaim(token, <span class="hljs-string">"authorities"</span>);
+                    <span class="hljs-keyword">if</span> (!authority.isEmpty()) &#123;
+                        <span class="hljs-comment">//[&#123;"authority":"ROLE_USER"&#125;,&#123;"authority":"ROLE_ADMIN"&#125;]</span>
+                        List&lt;Map&lt;String, String&gt;&gt; authorityMap = JSONObject.parseObject(authority, List<span class="hljs-class">.<span class="hljs-keyword">class</span>)</span>;
+                        <span class="hljs-keyword">for</span> (Map&lt;String, String&gt; map : authorityMap) &#123;
+                            <span class="hljs-keyword">if</span> (!map.isEmpty()) &#123;
+                                authorityList.add(<span class="hljs-keyword">new</span> SimpleGrantedAuthority(map.get(<span class="hljs-string">"authority"</span>)));
+                            &#125;
+                        &#125;
+                        SecurityUser user = <span class="hljs-keyword">new</span> SecurityUser(ID, name, authorityList);
+                        UsernamePasswordAuthenticationToken token1 = <span class="hljs-keyword">new</span> UsernamePasswordAuthenticationToken(user, <span class="hljs-keyword">null</span>, authorityList);
+                        <span class="hljs-comment">//保存到安全上下文，等会鉴权时用到。</span>
+                        SecurityContextHolder.getContext().setAuthentication(token1);
+                    &#125;
+                &#125; <span class="hljs-keyword">catch</span> (ExpiredJwtException e) &#123;
+                    logger.error(e.getMessage());
+                &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;
+                    logger.error(e.getMessage());
+                &#125;
+            &#125;
+        &#125;
+        filterChain.doFilter(request, response);
+    &#125;
+&#125;</code></pre></div>
+<h3 id="注册到spring-security"><a class="markdownIt-Anchor" href="#注册到spring-security"></a> 注册到Spring Security</h3>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@EnableWebSecurity</span>
+<span class="hljs-meta">@EnableGlobalMethodSecurity</span>(prePostEnabled = <span class="hljs-keyword">true</span>)
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">SecurityConfig</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">WebSecurityConfigurerAdapter</span> </span>&#123;
+    ...
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">configure</span><span class="hljs-params">(HttpSecurity http)</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;
+        ...
+        http.addFilter(<span class="hljs-keyword">new</span> JWTAuthFilter(authenticationManager()));
+    &#125;
+&#125;</code></pre></div>
+<p>一般来讲，如果是以角色(<code>hasRole</code>)来判断能否访问资源的话（就像下面的一样），到这里就结束了</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@PreAuthorize</span>(<span class="hljs-string">"hasRole('admin')"</span>)
+    <span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/admin"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">test</span><span class="hljs-params">()</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"Success"</span>;
+    &#125;</code></pre></div>
+<p>但是有时事情并没有那么简单，比如多人合作的一份文档，有人可以编辑，有人可以删除，有人只可以查看，所以我们要把权限控制的粒度细化一些。也就是说什么人可以干什么事情之类的，但是我这里<strong>没这样写</strong>，<s>只能等以后了</s>。只写了一个什么角色对有着什么操作权限，对于一个已经限定好操作权限的资源，不管你的角色是什么，只要你有它所要求的权限就可以对他操作了。</p>
+<h3 id="自定义权限比较器-customevaluator"><a class="markdownIt-Anchor" href="#自定义权限比较器-customevaluator"></a> 自定义权限比较器 CustomEvaluator</h3>
+<p>​	需要实现<code>PermissionEvaluator</code>下的<code>hasPermission</code>方法</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@Slf</span>4j
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CustomEvaluator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">PermissionEvaluator</span> </span>&#123;
+    <span class="hljs-meta">@Autowired</span>
+    PermissionRoleService service;
+    <span class="hljs-comment">//authentication 会自动传进去的。</span>
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasPermission</span><span class="hljs-params">(Authentication authentication, Object targetDomainObject, Object permission)</span> </span>&#123;
+        SecurityUser user = (SecurityUser) authentication.getPrincipal();
+        Collection&lt;? extends GrantedAuthority&gt; authorities = user.getAuthorities();
+        Set&lt;String&gt; permissions = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();
+        List&lt;Permission&gt; permissionList = service.getPremissionByID(user.getId());
+        permissionList.forEach(item -&gt; &#123;permissions.add(item.getPermission());&#125;);
+        <span class="hljs-keyword">if</span>(permissions.contains(permission.toString())) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">hasPermission</span><span class="hljs-params">(Authentication authentication, Serializable targetId, String targetType, Object permission)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    &#125;
+&#125;</code></pre></div>
+<p>对于：</p>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-meta">@PreAuthorize</span>(<span class="hljs-string">"hasPermission('/user/user','view:edit')"</span>)
+    <span class="hljs-meta">@RequestMapping</span>(<span class="hljs-string">"/user"</span>)
+    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">user</span><span class="hljs-params">()</span></span>&#123;
+        <span class="hljs-keyword">return</span> <span class="hljs-string">"User Success"</span>;
+    &#125;</code></pre></div>
+<p>这种形式的的，只要你的权限里面有<code>view:edit</code>这两个权限，都可以访问这个链接。</p>
+<p>-大概就结束了？</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/JavaWeb/">JavaWeb</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/p/7c6d07f7.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">416.分割等和子集</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/p/cec8f3e6.html">
+                        <span class="hidden-mobile">JWT学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.defer = false
+      s.setAttribute('repo', 'hukkall/comment');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      var e = document.getElementsByTagName('script')[0];
+      e.parentNode.insertBefore(s, e);
+    }
+    createObserver(loadUtterances, 'comments')
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "JWT+Ajax验证&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-172063258-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

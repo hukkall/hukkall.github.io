@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.ico">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="AaJal">
+  <meta name="keywords" content="">
+  <title>基于4412的opencv的移植(附带contrib) - FouRod</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/nord.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="FouRod" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>FouRod</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/post_banner.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-02-20 19:55">
+      2020年2月20日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：几秒前
+                
+              </p>
+            
+            <article class="markdown-body">
+              <h4 id="平台"><a class="markdownIt-Anchor" href="#平台"></a> 平台</h4>
+<ol>
+<li>UP-Tech 4412</li>
+<li>Kubuntu 18.04LTS 64位</li>
+</ol>
+<h4 id="使用的工具"><a class="markdownIt-Anchor" href="#使用的工具"></a> 使用的工具</h4>
+<ol>
+<li>2013版的交叉编译工具(arm-2013.05-24-arm-none-linux-gnueabi)</li>
+<li>opencv_3.4.9</li>
+<li>opencv_contrib_3.4.9</li>
+<li>cmake-gui</li>
+</ol>
+<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
+<ol>
+<li>放假之前用的虚拟机被我删除了，里面的文件都没了。</li>
+<li>开发板的文件系统被我折腾坏了</li>
+<li>需要重新移植opencv</li>
+</ol>
+<h4 id="解决过程"><a class="markdownIt-Anchor" href="#解决过程"></a> 解决过程：</h4>
+<h5 id="1-下载所需软件以及源代码"><a class="markdownIt-Anchor" href="#1-下载所需软件以及源代码"></a> 1. 下载所需软件以及源代码</h5>
+<p>​		首先下载好我们需要使用到的各个文件，他们的下载链接如下所示：</p>
+<div class="hljs"><pre><code class="hljs perl">arm-<span class="hljs-number">2013.05</span>-<span class="hljs-number">24</span>-arm-none-linux-gnueabi		链接：http:<span class="hljs-regexp">//pan</span>.baidu.com/<span class="hljs-keyword">s</span>/<span class="hljs-number">1</span>i3gNttF
+opencv_3.<span class="hljs-number">4.9</span>	链接：https:<span class="hljs-regexp">//github</span>.com/opencv/opencv/archive/<span class="hljs-number">3.4</span>.<span class="hljs-number">9</span>.tar.gz
+opencv_contrib_3.<span class="hljs-number">4.9</span> 链接：https:<span class="hljs-regexp">//github</span>.com/opencv/opencv_contrib/archive/<span class="hljs-number">3.4</span>.<span class="hljs-number">9</span>.tar.gz</code></pre></div>
+<p>至于cmake-gui的话，如果你使用的是ububtu，直接在终端输入<code>sudo apt install cmake-gui</code>即可。</p>
+<p>将交叉编译器解压好，这里我的是<code>/home/gukki/baidunetdiskdownload/arm-2013.05/</code></p>
+<p>将下载并解压好的两份源代码放在同一个目录。</p>
+<h5 id="2-使用cmake-gui进行交叉编译"><a class="markdownIt-Anchor" href="#2-使用cmake-gui进行交叉编译"></a> 2. 使用cmake-gui进行交叉编译</h5>
+<p>​		打开cmake，如下图所示：（只截取了上半部分）</p>
+<p><img src="/../img/image-20200220202805847.png" srcset="/img/loading.gif" alt="image-20200220202805847" /></p>
+<p>​		第一行是要求你输入你的opencv的源代码的绝对路径，在这里我的路径是<code>/home/gukki/OpenCv/Source_Code/opencv-3.4.9</code>，第二行要求你填写配置好的源代码的保存路径。在这里，我的是<code>/home/gukki/OpenCv/Process_Code</code>。</p>
+<p>​		填写完毕之后点击<code>Configure</code>，cmake要求你选择编译工具，由于我们是交叉编译，我们选择最后一项。点击下一步之后如下图所示：</p>
+<p><img src="/../img/image-20200220203339941.png" srcset="/img/loading.gif" alt="image-20200220203339941" /></p>
+<p>​		其中<code>Operating System</code>顾名思义，操作系统，我们的开发板上用的是Linux，就写上吧。</p>
+<p><code>C</code>要求你指定好交叉编译器的C编译器，也就是arm-gcc的所在地。</p>
+<p><code>C++</code>同理，也是要求你填上arm-g++的所在地，而<code>Target Root</code>填写上你交叉编译器的目录。</p>
+<p>​		填写完成之后点击完成。</p>
+<p>​		配置完成之后应该会是一片红色，并且左下角的文本显示区域有一句<code>Configuring done</code>。</p>
+<p>我们对我们的需求进行对opencv的裁剪：</p>
+<blockquote>
+<p>在搜索栏区域输入JPEG,勾选上<code>BUILD_JPEG</code></p>
+<p>输入PNG,勾选上<code>BULID_PNG</code></p>
+<p>输入nonfree，勾选上</p>
+<p>输入gtk，取消勾选，因为我们用不上图形界面</p>
+<p>输入zlib，勾选上</p>
+<p>输入extra，在<code>Value</code>一栏上点击右边的三个点，定位好你的<code>opencv_contrib</code>的<code>moudules</code>文件夹。</p>
+<p>输入prefix，输入你想安装到的文件夹路径。等会<code>make install</code>时会安装到这里。</p>
+</blockquote>
+<p>​		配置完成之后点击<code>Configure</code>，此时你应该要下载一些有关附加模块的一些文件，可能需要很久，等不及的就不去配置extra。下载完成之后，可以再次对额外模块进行裁剪，根据你的需求来定。裁剪完成之后，再次点击<code>Configure</code>，应该不会出现红色了。</p>
+<p>点击<code>Generate</code>生成工程文件。</p>
+<h5 id="3编译文件"><a class="markdownIt-Anchor" href="#3编译文件"></a> 3.编译文件</h5>
+<p>​		进入你的配置好的源代码的文件夹，在此处打开终端，输入<code>make</code>开始编译，根据自身虚拟机配置情况，可在后面加上<code>-j线程数</code>这个参数，我给虚拟机分配了8个核心，所以我编译速度比较快，只用了5分钟左右。如果你什么都没加，预计时间可能是半小时到一小时左右。中间可能有些警告，无须理会。只要没停下来就好。</p>
+<p><img src="/../img/image-20200220210124846.png" srcset="/img/loading.gif" alt="image-20200220210124846" /></p>
+<p>可以看到处理器是被吃满的。</p>
+<p>​		编译完成后输入<code>make install</code>，可能需要你加个<code>sudo</code>什么的…</p>
+<p>​		安装完成之后可以去设定的<code>prefix</code>文件夹去看看。应该长这样：</p>
+<p><img src="/../img/image-20200220210712344.png" srcset="/img/loading.gif" alt="image-20200220210712344" /></p>
+<p>​		其中<code>lib</code>里面是我们编译好的库文件，使用<code>file</code>命令查看类型：</p>
+<p><img src="/../img/image-20200220210841342.png" srcset="/img/loading.gif" alt="image-20200220210841342" /></p>
+<p>​		成功了大半了！</p>
+<h5 id="4-移植到开发板上"><a class="markdownIt-Anchor" href="#4-移植到开发板上"></a> 4. 移植到开发板上</h5>
+<p>​		将<code>lib</code>文件夹里面的所有文件全部传到开发板的<code>/lib</code>，目录下面，使用<code>nfs</code>速度会快很多。</p>
+<p>​		由于我们使用了较新版本的<code>arm_gcc</code>编译工具链，我们还需要把交叉编译工具链里面的<code>libstdc++.so,libstdc++.so.6,libstdc++6.0.17</code>一起复制过去并覆盖。他们位于<code>arm-2013.05/arm-none-linux-gnueabi/libc/usr/lib/</code>这个地方。</p>
+<h5 id="5-虚拟机编译设置"><a class="markdownIt-Anchor" href="#5-虚拟机编译设置"></a> 5. 虚拟机编译设置</h5>
+<p>​		为了让虚拟机知道opecv的头文件和库文件的位置，我们需要借助一个叫做<code>pkg-config</code> 的软件， 安装也是可以用<code>apt</code>来安装的。我们找到opencv库文件夹里面的pkgconfig文件夹，打开你的shell的配置文件，我使用的是<code>zsh</code>所以打开<code>.zshrc</code>加入以下的两句话句话：</p>
+<div class="hljs"><pre><code class="hljs crystal">PKG_CONFIG_PATH=<span class="hljs-regexp">/home/gukki</span><span class="hljs-regexp">/OpenCv/</span>_Install/<span class="hljs-class"><span class="hljs-keyword">lib</span>/<span class="hljs-title">pkgconfig</span>/:$<span class="hljs-title">PKG_CONFIG_PATH</span></span>
+export PKG_CONFIG_PATH</code></pre></div>
+<p>​		自行替换你的pkgconfig文件夹位置。</p>
+<p>​		使用<code>source</code>命令让更改生效，输入<code>pkg-config --cflags --libs opencv</code>，应该会出现一大坨东西，如下所示：</p>
+<p><img src="/../img/image-20200220212101215.png" srcset="/img/loading.gif" alt="image-20200220212101215" /></p>
+<h5 id="6-测试与简化"><a class="markdownIt-Anchor" href="#6-测试与简化"></a> 6. 测试与简化</h5>
+<p>​		写一个非常简单的程序，来测试下吧：</p>
+<div class="hljs"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;opencv2/opencv.hpp&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> cv;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+  Mat m;
+  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></div>
+<p>​		保存为<code>T.cpp</code>，使用如下命令进行编译：</p>
+<div class="hljs"><pre><code class="hljs shell">arm-none-linux-gnueabi-g++ `pkg-config --cflags --libs opencv` T.cpp -lpthread -lrt -ldl</code></pre></div>
+<p>​		应该只有一个警告，不需要理会。</p>
+<p>​		生成的<code>a.out</code>文件拷贝到开发板，给予权限。运行之后应该什么效果都没有，也没有任何报错。那就是行了。你可以试试更加复杂的程序了。但是不能有任何跟界面有关的函数出现比如<code>imshow</code>，<code>waitkey</code>等等，否则会报错。（因为我裁剪掉了）你也可以自行尝试如何让他们使用，有更好的想法可以告诉我！</p>
+<p>​		每次编译都要打那么长的代码，有没有方法可以简化？</p>
+<p>​		可以使用<code>alias</code>命令来进行简化，我的就是：</p>
+<div class="hljs"><pre><code class="hljs shell">alias armcv="arm-none-linux-gnueabi-g++ `pkg-config --cflags --libs opencv` -lpthread -ldl -lrt"</code></pre></div>
+<p>​		同样的，写到你自己的shell的配置文件里面。</p>
+<p>​		完-</p>
+<p>​</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E4%BB%B6%E7%A7%BB%E6%A4%8D/">软件移植</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/p/52f9e600.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">在Coding和Github上进行双线自动化部署Hexo</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/p/15bec6d.html">
+                        <span class="hidden-mobile">4412的wifi驱动以及管理软件的移植</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.defer = false
+      s.setAttribute('repo', 'hukkall/comment');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('theme', 'github-light');
+      s.setAttribute('crossorigin', 'anonymous');
+      var e = document.getElementsByTagName('script')[0];
+      e.parentNode.insertBefore(s, e);
+    }
+    createObserver(loadUtterances, 'comments')
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "基于4412的opencv的移植(附带contrib)&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script defer>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-172063258-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

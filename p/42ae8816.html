@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      24
+      25
        分钟
     </span>
   
@@ -214,12 +214,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年7月9日 下午
+                  本文最后更新于：2020年7月9日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <h4 id="平台"><a class="markdownIt-Anchor" href="#平台"></a> 平台</h4>
+              <p>和缺少资料的开发板斗智斗勇的过程之其一</p>
+<a id="more"></a>
+<h4 id="平台"><a class="markdownIt-Anchor" href="#平台"></a> 平台</h4>
 <ol>
 <li>UP-Tech 4412</li>
 <li>Kubuntu 18.04LTS 64位</li>
@@ -231,13 +233,13 @@
 <li>opencv_contrib_3.4.9</li>
 <li>cmake-gui</li>
 </ol>
-<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
+<h4 id="起因"><a class="markdownIt-Anchor" href="#起因"></a> 起因</h4>
 <ol>
 <li>放假之前用的虚拟机被我删除了，里面的文件都没了。</li>
 <li>开发板的文件系统被我折腾坏了</li>
 <li>需要重新移植opencv</li>
 </ol>
-<h4 id="解决过程"><a class="markdownIt-Anchor" href="#解决过程"></a> 解决过程：</h4>
+<h4 id="过程"><a class="markdownIt-Anchor" href="#过程"></a> 过程：</h4>
 <h5 id="1-下载所需软件以及源代码"><a class="markdownIt-Anchor" href="#1-下载所需软件以及源代码"></a> 1. 下载所需软件以及源代码</h5>
 <p>​		首先下载好我们需要使用到的各个文件，他们的下载链接如下所示：</p>
 <div class="hljs"><pre><code class="hljs perl">arm-<span class="hljs-number">2013.05</span>-<span class="hljs-number">24</span>-arm-none-linux-gnueabi		链接：http:<span class="hljs-regexp">//pan</span>.baidu.com/<span class="hljs-keyword">s</span>/<span class="hljs-number">1</span>i3gNttF
@@ -270,7 +272,7 @@ opencv_contrib_3.<span class="hljs-number">4.9</span> 链接：https:<span class
 <p>​		配置完成之后点击<code>Configure</code>，此时你应该要下载一些有关附加模块的一些文件，可能需要很久，等不及的就不去配置extra。下载完成之后，可以再次对额外模块进行裁剪，根据你的需求来定。裁剪完成之后，再次点击<code>Configure</code>，应该不会出现红色了。</p>
 <p>点击<code>Generate</code>生成工程文件。</p>
 <h5 id="3编译文件"><a class="markdownIt-Anchor" href="#3编译文件"></a> 3.编译文件</h5>
-<p>​		进入你的配置好的源代码的文件夹，在此处打开终端，输入<code>make</code>开始编译，根据自身虚拟机配置情况，可在后面加上<code>-j线程数</code>这个参数，我给虚拟机分配了8个核心，所以我编译速度比较快，只用了5分钟左右。如果你什么都没加，预计时间可能是半小时到一小时左右。中间可能有些警告，无须理会。只要没停下来就好。</p>
+<p>​		进入你的配置好的源代码的文件夹，在此处打开终端，输入<code>make</code>开始编译，根据自身虚拟机配置情况，可在后面加上<code>-j 线程数</code>这个参数，我给虚拟机分配了8个核心，所以我编译速度比较快，只用了5分钟左右。如果你什么都没加，预计时间可能是半小时到一小时左右。中间可能有些警告，无须理会。只要没停下来就好。</p>
 <p><img src="/../img/image-20200220210124846.png" srcset="/img/loading.gif" alt="image-20200220210124846" /></p>
 <p>可以看到处理器是被吃满的。</p>
 <p>​		编译完成后输入<code>make install</code>，可能需要你加个<code>sudo</code>什么的…</p>
@@ -535,7 +537,7 @@ export PKG_CONFIG_PATH</code></pre></div>
         "基于4412的opencv的移植(附带contrib)&nbsp;",
       ],
       cursorChar: "_",
-      typeSpeed: 70,
+      typeSpeed: 60,
       loop: false,
     });
     typed.stop();
@@ -552,6 +554,8 @@ export PKG_CONFIG_PATH</code></pre></div>
     anchors.options = {
       placement: "right",
       visible: "hover",
+      
+      icon: "§"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");

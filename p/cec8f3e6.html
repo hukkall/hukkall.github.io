@@ -214,12 +214,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年7月9日 下午
+                  本文最后更新于：2020年7月9日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <h1 id="jwt-学习"><a class="markdownIt-Anchor" href="#jwt-学习"></a> JWT 学习</h1>
+              <p>一个新手对于JWT的认识</p>
+<a id="more"></a>
+<h1 id="jwt-学习"><a class="markdownIt-Anchor" href="#jwt-学习"></a> JWT 学习</h1>
 <h2 id="1-概念"><a class="markdownIt-Anchor" href="#1-概念"></a> 1、概念</h2>
 <p>​	 JWT(Jason Web Token)按照我个人理解，是一串服务端按照特定的加密算法生成的字符串。</p>
 <p>​	在用户登录成功之后，服务器将用户的个人信息加密并签名成一串字符串发送回用户浏览器，在每次访问受权限控制的网页的时候将这串字符串发回给服务器，用于证明“你还是你”。然后服务端可以解密这串字符串，从里面拿到用户的相关信息，并判断用户有无权限访问此页面。</p>
@@ -1401,7 +1403,7 @@
         "JWT学习&nbsp;",
       ],
       cursorChar: "_",
-      typeSpeed: 70,
+      typeSpeed: 60,
       loop: false,
     });
     typed.stop();
@@ -1418,6 +1420,8 @@
     anchors.options = {
       placement: "right",
       visible: "hover",
+      
+      icon: "§"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");

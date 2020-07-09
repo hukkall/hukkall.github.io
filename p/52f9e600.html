@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      29
        分钟
     </span>
   
@@ -214,12 +214,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年7月9日 下午
+                  本文最后更新于：2020年7月9日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <h3 id="起因"><a class="markdownIt-Anchor" href="#起因"></a> 起因</h3>
+              <p>如何在国内和国外自动化搭建静态博客</p>
+<a id="more"></a>
+<h3 id="起因"><a class="markdownIt-Anchor" href="#起因"></a> 起因</h3>
 <p>​		我前几天开始搭建这个博客，由于之前搭建过很多次，所以没有出现什么意外就搭建完了。但是当我把博客地址给其他人的时候，他们有的反应打得开，有的反应打不开。经过一番谷歌之后我发现原因可能是gitpage的服务器在国外，会出现加载失败的问题。与此同时我又了解到国内也有提供类似静态页面托管服务的厂家，我就想把博客也一并部署到国内的服务器上。我选择了可免费绑定域名的Coding（需要实名认证）。</p>
 <p>​		我这种经常宿舍实验室两头跑的人有在不同电脑上写博客的需求，而我又不想每次都要拷个源代码，于是便萌生了将博客源代码上传到github去的想法。但是这样一来每次写完代码都要做git三连和hexo三连，很是麻烦。一番搜索之后发现Appveyor可以实现自动化部署hexo，只需要推送到远程仓库，Appveyor就可以帮我自动部署了。</p>
 <p>​		但是对于coding的话，我用Appveyor就找不到什么好方法了。我们可以利用github自带的Ci来进行Coding的静态页面的自动化部署。当然你也可以不用Appveyor，直接利用github的Ci进行部署也是可以的。</p>
@@ -610,7 +612,7 @@
         "在Coding和Github上进行双线自动化部署Hexo&nbsp;",
       ],
       cursorChar: "_",
-      typeSpeed: 70,
+      typeSpeed: 60,
       loop: false,
     });
     typed.stop();
@@ -627,6 +629,8 @@
     anchors.options = {
       placement: "right",
       visible: "hover",
+      
+      icon: "§"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");

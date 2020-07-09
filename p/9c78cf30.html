@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      484 字
+      1.5k 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      25
        分钟
     </span>
   
@@ -214,12 +214,14 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年7月9日 下午
+                  本文最后更新于：2020年7月9日 晚上
                 
               </p>
             
             <article class="markdown-body">
-              <h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1>
+              <p>与动态规划作斗争-其二</p>
+<a id="more"></a>
+<h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1>
 <p>给定一个<strong>非负整数</strong>数组，a1, a2, …, an, 和一个目标数，S。现在你有两个符号 + 和 -。对于数组中的任意一个整数，你都可以从 + 或 -中选择一个符号添加在前面。</p>
 <p>返回可以使最终数组和为目标数 S 的所有添加符号的方法数。</p>
 <p><strong>示例：</strong></p>
@@ -251,7 +253,52 @@
 \text{即}	\\
 2\cdot\Sigma{(P)}=Target+\Sigma{(U)}
 </annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">设</span><span class="mord">P</span><span class="mord cjk_fallback">为正子集，</span><span class="mord">N</span><span class="mord cjk_fallback">为负子集，</span><span class="mord">U</span><span class="mord cjk_fallback">为整个数组。有：</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord cjk_fallback">两边同时加上</span></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">:</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mclose">)</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">即</span></span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">⋅</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.13889em;">P</span><span class="mclose">)</span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8777699999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="mord mathdefault">a</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">t</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">Σ</span><span class="mord"><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">U</span><span class="mclose">)</span></span></span></span></span></span></p>
-<p>​</p>
+<p>​	就是说在给定的数组里面找到一些数，他们的和的两倍是目标数字加上整个数组之和。换言之，如果目标数字加上整个数组之和不是个偶数，那么就肯定不存在这个正子集。这是一个判断条件。</p>
+<p>​	那么按照动态规划的思路：</p>
+<blockquote>
+<ul>
+<li>定状态</li>
+<li>找基态</li>
+<li>写转移方程</li>
+</ul>
+</blockquote>
+<p>​	我们一步一步来，先是定状态，前面我们已经讲过，这道题可以转换为背包问题来解决。一样的，我们的状态可以为<strong>选取数的范围</strong>（物品）以及<strong>要凑成的数</strong>（重量）这两种。很容易的，我们可以用一个二维数组<code>dp[i][j]</code>来表示对于索引<code>[0,i]</code>的数，我们能凑出<code>j</code>的方法数量。</p>
+<p>​	状态我们明确了，那么就来找找最基础的状态了，根据背包问题的经验，<code>dp[0][0]</code>的方法数量始终为<code>1</code>，因为选择前<code>0</code>个数的时候，合成<code>0</code>的方法永远都是<code>1</code>，即什么都不选。</p>
+<p>​	接下来就是我觉得动态规划最让人头疼的状态转移了，对于当前的<code>nums[i]</code>，有两种选择，要么加进背包，要么不加进去，由于我们是要求方法的数量，所以要把<code>nums[i]</code>没放进背包的情况的方法数量加上放进背包的情况。对于<code>dp[i][j]</code>，它的值等于:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo stretchy="false">]</mo><mo>+</mo><mi>d</mi><mi>p</mi><mo stretchy="false">[</mo><mi>i</mi><mo>−</mo><mn>1</mn><mo stretchy="false">]</mo><mo stretchy="false">[</mo><mi>j</mi><mo>−</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi>s</mi><mo stretchy="false">[</mo><mi>i</mi><mo stretchy="false">]</mo><mo stretchy="false">]</mo><mspace linebreak="newline"></mspace><mtext>没放进去</mtext><mo>+</mo><mtext>放进去了</mtext></mrow><annotation encoding="application/x-tex">dp[i-1][j]+dp[i-1][j-nums[i]]\\
+\text{没放进去}+\text{放进去了}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">d</span><span class="mord mathdefault">p</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.05724em;">j</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">n</span><span class="mord mathdefault">u</span><span class="mord mathdefault">m</span><span class="mord mathdefault">s</span><span class="mopen">[</span><span class="mord mathdefault">i</span><span class="mclose">]</span><span class="mclose">]</span></span><span class="mspace newline"></span><span class="base"><span class="strut" style="height:0.76666em;vertical-align:-0.08333em;"></span><span class="mord text"><span class="mord cjk_fallback">没放进去</span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord text"><span class="mord cjk_fallback">放进去了</span></span></span></span></span></span></p>
+<p>这式子很好理解，没放进去的话，肯定继承了上一次的数量嘛；放进去的话，就要找一找上一次<strong>没加上这个数</strong>的时候的方法数量。</p>
+<blockquote>
+<p>我知道我这人没多久就会很难理解后面这句话的意思，所以趁着我现在大概能理解，赶紧讲明白：</p>
+<p>把后面的那个<code>dp[i-1][j-nums[i]]</code>的<code>j</code>当做现在的背包的总重量（就是已经把<code>nums[i]</code>装进去了），那么我想知道现在背包的总价值，那我是不是必须得知道没装这个物品的时候，我的背包的总价值？</p>
+<p>这个也同理嘛，想知道我加上这个数（<code>nums[i]</code>)之后一共有多少种方法合成当前的数字(<code>j</code>）？那我起码得知道没加进去（<code>dp[i-1][j-nums[i]]</code>）的时候有多少种方法嘛。</p>
+</blockquote>
+<h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">findTargetSumWays</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span> S)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> sum = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
+            sum += num;
+        &#125;
+        <span class="hljs-keyword">if</span> ((S + sum) % <span class="hljs-number">2</span> != <span class="hljs-number">0</span> || sum &lt; Math.abs(S)) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">int</span> val = (S + sum) / <span class="hljs-number">2</span>;
+        <span class="hljs-keyword">int</span>[] dp = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[val + <span class="hljs-number">1</span>];
+        dp[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> num : nums) &#123;
+            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = val; j &gt;= num; j--) &#123;
+                dp[j] = dp[j] + dp[j - num];
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> dp[val];
+    &#125;
+&#125;</code></pre></div>
+<p>​	那么我这里为什么只用了一个一维数组呢？因为我们观察状态转移方程可以知道：当前状态都是上一次状态转移过来的，我们可以用一个一维数组保存数据就可以了。其中<code>dp[i-1][j]</code>和代码中左侧的<code>dp[j]</code>是一样的，在为左边的<code>dp[j]</code>赋值的时候，右边的<code>dp[j]</code>还保存着上一次循环的值，对吧？<code>dp[j-num]</code>也同理。</p>
+<p>​	还有，为什么要逆序？为了确保右边的<code>dp[j]</code>和<code>dp[j-num]</code>保存的还是之前的值，拿<code>dp[j-num]</code>来讲：</p>
+<blockquote>
+<p>设<code>dp[10]</code>等于<code>dp[10]+dp[10-4]</code>来讲，如果顺序更新，那我<code>dp[6]</code>是不是比<code>dp[10]</code>先更新？这就不符合我们的要求了嘛</p>
+</blockquote>
+<p>​	还有，为什么要以当前的<code>num[i]</code>作为<code>j</code>的下限呢？你总没见过负数的索引吧？况且<code>j</code>可以看为当前的背包容量，如果背包容量不足以装下这个数字，那还装个🔨。</p>
 
             </article>
             <hr>
@@ -475,7 +522,7 @@
         "494. 目标和&nbsp;",
       ],
       cursorChar: "_",
-      typeSpeed: 70,
+      typeSpeed: 60,
       loop: false,
     });
     typed.stop();
@@ -492,6 +539,8 @@
     anchors.options = {
       placement: "right",
       visible: "hover",
+      
+      icon: "§"
       
     };
     var el = "h1,h2,h3,h4,h5,h6".split(",");

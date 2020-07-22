@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>1.05 一次编辑</title>
+    <link href="/p/26a9.html"/>
+    <url>/p/26a9.html</url>
+    
+    <content type="html"><![CDATA[<p>一道分情况讨论的题目</p><a id="more"></a><h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1><p>字符串有三种编辑操作:插入一个字符、删除一个字符或者替换一个字符。 给定两个字符串，编写一个函数判定它们是否只需要一次(或者零次)编辑。</p><p><strong>示例 1:</strong></p><blockquote><p>输入:<br />first = “pale”<br />second = “ple”<br />输出: True</p></blockquote><p><strong>示例 2:</strong></p><blockquote><p>输入:<br />first = “pales”<br />second = “pal”<br />输出: False</p></blockquote><h1 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h1><p>​我们可以从这两个字符串的长度来入手：</p><p>​首先，题目要求只能<strong>编辑一次</strong>或者<strong>零次</strong>，而且一次只能动<strong>一个</strong>字符，也就是说如果两个字符串长度相差大于<code>1</code>，</p><p>那么我们不用进行处理了，直接返回<code>false</code>便是。</p><p>​然后，在相差值为<code>1</code>的时候，有两种情况：<code>first</code>比<code>second</code>短，也就是<code>second</code><strong>增加了一个</strong>字符，那我们只需要逐字比对，跳过<code>second</code>里面不一样的字符，记录不一样字符的个数(<code>cot</code>)，然后根据<code>cot</code>是否为<code>1</code>，来判断是不是只需要编辑一次；第二种情况也是差不多了，<code>first</code>比<code>second</code>长，也是逐字比对，跳过<code>first</code>里面不一样的字符，记录不同数量。</p><p>​还有，相差值为<code>0</code>的时候，要想从<code>first</code>转换为<code>second</code>，只能通过<strong>替换</strong>字符来做到，所以也是逐字比对，但是不跳过不同的，记录不同字符的数量。根据不同数量是否为<code>1</code>来决定返回什么结果。</p><h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1><div class="hljs"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">oneEditAway</span><span class="hljs-params">(String first, String second)</span> </span>&#123;        <span class="hljs-keyword">int</span> len_1 = first.length();        <span class="hljs-keyword">int</span> len_2 = second.length();        <span class="hljs-keyword">if</span> (Math.abs(len_1 - len_2) &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        <span class="hljs-keyword">if</span> ((len_1 == <span class="hljs-number">0</span> &amp;&amp; len_2 == <span class="hljs-number">1</span>) || (len_1 == <span class="hljs-number">1</span> &amp;&amp; len_2 == <span class="hljs-number">0</span>)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;<span class="hljs-comment">//特殊情况</span>        <span class="hljs-keyword">if</span> (len_1 &gt; len_2) &#123;<span class="hljs-comment">//删除</span>            <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;            <span class="hljs-keyword">int</span> cot = <span class="hljs-number">0</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len_1 &amp;&amp; index &lt; len_2; i++) &#123;                <span class="hljs-keyword">if</span> (first.charAt(i) != second.charAt(index)) &#123;                    cot++;                    <span class="hljs-keyword">continue</span>;                &#125;                index++;            &#125;            <span class="hljs-keyword">if</span> (cot &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (len_1 &lt; len_2) &#123;<span class="hljs-comment">//插入</span>            <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;            <span class="hljs-keyword">int</span> cot = <span class="hljs-number">0</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len_2 &amp;&amp; index &lt; len_1; i++) &#123;                <span class="hljs-keyword">if</span> (second.charAt(i) != first.charAt(index)) &#123;                    cot++;                    <span class="hljs-keyword">continue</span>;                &#125;                index++;            &#125;            <span class="hljs-keyword">if</span> (cot &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125; <span class="hljs-keyword">else</span> &#123;<span class="hljs-comment">//替换</span>            <span class="hljs-keyword">int</span> cot = <span class="hljs-number">0</span>;            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len_1; i++) &#123;                <span class="hljs-keyword">if</span> (second.charAt(i) != first.charAt(i)) cot++;            &#125;            <span class="hljs-keyword">if</span> (cot &gt; <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        &#125;    &#125;</code></pre></div>]]></content>
+    
+    
+    <categories>
+      
+      <category>uncategorized</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>1191. K 次串联后最大子数组之和</title>
     <link href="/p/897c.html"/>
     <url>/p/897c.html</url>

@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>1007 行相等的最少多米诺旋转</title>
+    <link href="/p/34f.html"/>
+    <url>/p/34f.html</url>
+    
+    <content type="html"><![CDATA[<p>这我真没看出哪里有贪心了…</p><a id="more"></a><h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1><p>在一排多米诺骨牌中，<code>A[i]</code> 和 <code>B[i]</code> 分别代表第 <code>i</code> 个多米诺骨牌的上半部分和下半部分。（一个多米诺是两个从 <code>1</code> 到 <code>6</code> 的数字同列平铺形成的 —— 该平铺的每一半上都有一个数字。）</p><p>我们可以旋转第 <code>i</code> 张多米诺，使得 <code>A[i]</code> 和 <code>B[i]</code> 的值交换。</p><p>返回能使 <code>A</code> 中所有值或者 <code>B</code> 中所有值都相同的最小旋转次数。</p><p>如果无法做到，返回 <code>-1</code>.</p><p><strong>示例 1：</strong></p><p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/03/08/domino.png" srcset="/img/loading.gif" alt="img" /></p><blockquote><p><strong>输入：</strong> A = [2,1,2,4,2,2], B = [5,2,6,2,3,2]<br /><strong>输出：</strong> 2<br /><strong>解释：</strong><br />图一表示：在我们旋转之前， A 和 B 给出的多米诺牌。<br />如果我们旋转第二个和第四个多米诺骨牌，我们可以使上面一行中的每个值都等于 2，如图二所示。<br />示例 2：</p></blockquote><blockquote><p><strong>输入：</strong>  A = [3,5,1,2,3], B = [3,6,3,3,4]<br /><strong>输出：</strong>  -1<br /><strong>解释：</strong><br />在这种情况下，不可能旋转多米诺牌使一行的值相等。</p></blockquote><h1 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h1><p>​第一想法是找到出现次数最多的数字<code>max</code>，再逐一翻转为<code>max</code>。若有一列不能做到，返回<code>-1</code></p><p>​其实还可以这样想：</p><p>​如果给的多米诺数组是可以成功旋转的，那么目标数字必定会出现在所有的列中，对于<strong>示例1</strong>，可以观察得到，目标数字<code>2</code>出现在了每一列中。</p><p>​我们不妨指定一列，比如<code>A[0]，B[0]</code>。我们尝试将数组<code>A</code>中的所有数字旋转成<code>A[0]</code>，前提条件是数组<code>B</code>对应位置是<code>A[0]</code>（要想把当前数字改变成A[0]，必须要有对应的数字可供旋转），或者说数组<code>A</code>当前位置的数字就是<code>A[0]</code>（不用旋转）。记录旋转次数<code>r_A</code>。</p><p>​然后尝试将数组<code>B</code>中的所有数字旋转成<code>A[0]</code>，过程同理，记录旋转次数<code>r_A</code>，然后返回两个旋转次数的最小值<code>min</code>。如果两个操作都执行不了，就返回<code>-1</code></p><p>​上面两个操作都是尝试将两个数组都转换为<code>A[0]</code>，如果操作成功，就直接返回<code>min</code>，操作无法完成的话，就尝试将两个数组转换为<code>B[0]</code>。</p><h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1><div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">minDominoRotations</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span>[] B)</span> </span>&#123;        <span class="hljs-keyword">int</span> len = A.length;        <span class="hljs-keyword">int</span> res = check(A[<span class="hljs-number">0</span>],A,B,len);<span class="hljs-comment">//尝试将俩个数组的值旋转为A[0]</span>        <span class="hljs-keyword">if</span>(res!=-<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> res;<span class="hljs-comment">//操作成功，返回最小值</span>        <span class="hljs-keyword">else</span>    <span class="hljs-keyword">return</span> check(B[<span class="hljs-number">0</span>],A,B,len);<span class="hljs-comment">//否则执行将两个数组的值转换为B[0]</span>    &#125;    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">check</span><span class="hljs-params">(<span class="hljs-keyword">int</span> target, <span class="hljs-keyword">int</span>[] A, <span class="hljs-keyword">int</span>[] B, <span class="hljs-keyword">int</span> len)</span> </span>&#123;        <span class="hljs-keyword">int</span> r_A = <span class="hljs-number">0</span>;        <span class="hljs-keyword">int</span> r_B = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; len; i++) &#123;            <span class="hljs-keyword">if</span>(A[i]!=target&amp;&amp;B[i]!=target)  <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<span class="hljs-comment">//如果这一列并不包含目标数字，肯定是失败的。</span>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(A[i]!=target)   r_A++;            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(B[i]!=target)   r_B++;        &#125;        <span class="hljs-keyword">return</span> Math.min(r_A, r_B);    &#125;&#125;</code></pre></div>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>贪心</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>129 求根到叶子节点数字之和</title>
     <link href="/p/11f9.html"/>
     <url>/p/11f9.html</url>

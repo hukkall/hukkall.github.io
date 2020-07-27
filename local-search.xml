@@ -4,6 +4,60 @@
   
   
   <entry>
+    <title>17.10 主要元素</title>
+    <link href="/p/2a22.html"/>
+    <url>/p/2a22.html</url>
+    
+    <content type="html"><![CDATA[<p>一道很经典的利用摩尔投票算法的题目</p><a id="more"></a><h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1><p>数组中占比超过一半的元素称之为主要元素。给定一个<strong>整数</strong>数组，找到它的主要元素。若没有，返回-1。</p><p><strong>示例 1：</strong></p><div class="hljs"><pre><code class="hljs angelscript">输入：[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">9</span>,<span class="hljs-number">5</span>,<span class="hljs-number">9</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>]输出：<span class="hljs-number">5</span></code></pre></div><p><strong>示例 2：</strong></p><div class="hljs"><pre><code class="hljs angelscript">输入：[<span class="hljs-number">3</span>,<span class="hljs-number">2</span>]输出：<span class="hljs-number">-1</span></code></pre></div><p><strong>示例 3：</strong></p><div class="hljs"><pre><code class="hljs angelscript">输入：[<span class="hljs-number">2</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>]输出：<span class="hljs-number">2</span></code></pre></div><p><strong>说明：</strong><br />你有办法在时间复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mi>N</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(N)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span>，空间复杂度为 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>内完成吗？</p><h1 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h1><p>​第一感觉就是哈希表计数，然后比较大小并输出。但是这样的话就不满足题目要求的空间复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">O(1)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord">1</span><span class="mclose">)</span></span></span></span>的要求了。</p><p>​还有一种是比较通用的求众数的方法，叫做<strong>摩尔投票</strong>。核心思想是在一个数组里面，存在一个数，它的出现次数是整个数组的长度的一半，摩尔投票算法所做的是从这个数组里，每次选出两个不同数字，一起删除，直到剩下一个数字或者几个相同的数字，那么剩下的就是众数了。</p><p>​更通俗易懂一点的话就是：</p><blockquote><p>跟鬼子肉搏。1打1会同归于尽。要想获胜只能使用人海战术，最起码要比鬼子人数多一个，也就是大于<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mi>n</mi><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{n}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.040392em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.695392em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p></blockquote><p>​理解了这个就好办了，我们维护一个变量<code>major</code>，用于保存当前遇到最多的数字，另一个变量<code>count</code>，用于保存<code>major</code>的数量。遇到与<code>major</code>不同的数字的时候，<code>count</code>自减，当<code>count</code>归零的时候，将当前的数字变成新的<code>major</code>，并将<code>conut</code>初始化为<code>1</code>。</p><h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1><div class="hljs"><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">majorityElement</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>&#123;        <span class="hljs-keyword">int</span> major = <span class="hljs-number">0</span>;<span class="hljs-comment">//当前的出现次数最多的数字</span>        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;<span class="hljs-comment">//出现次数</span>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;            <span class="hljs-keyword">if</span> (count != <span class="hljs-number">0</span>) &#123;                <span class="hljs-keyword">if</span> (nums[i] != major) &#123;<span class="hljs-comment">//不同的数字两两抵消</span>                    count--;                &#125; <span class="hljs-keyword">else</span> &#123;                    count++;<span class="hljs-comment">//相同的话就更新</span>                &#125;            &#125; <span class="hljs-keyword">else</span> &#123;                major = nums[i];<span class="hljs-comment">//计数器归零的时候，更新为当前数字</span>                count = <span class="hljs-number">1</span>;            &#125;                   &#125;        <span class="hljs-keyword">return</span> major;    &#125;&#125;</code></pre></div><p>​很奇怪的是，没有出现过<code>-1</code>这种情况，不然的话，后面还要遍历一次数组，确保出现次数超过数组长度的一半，毕竟摩尔投票算法得到的是众数，并不确保出现次数超过数组长度的一半。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>LeetCode</tag>
+      
+      <tag>摩尔投票</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>598 范围求和</title>
+    <link href="/p/8f1f.html"/>
+    <url>/p/8f1f.html</url>
+    
+    <content type="html"><![CDATA[<p>一道数学题</p><a id="more"></a><h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1><p>给定一个初始元素全部为 <code>0</code>，大小为 <code>m*n</code> 的矩阵 <code>M</code> 以及在 <code>M</code> 上的一系列更新操作。</p><p>操作用二维数组表示，其中的每个操作用一个含有两个正整数 <code>a</code> 和 <code>b</code> 的数组表示，含义是将所有符合 <code>0 &lt;= i &lt; a</code> 以及 <code>0 &lt;= j &lt; b</code> 的元素 <code>M[i][j]</code> 的值都增加 <code>1</code>。</p><p>在执行给定的一系列操作后，你需要返回矩阵中含有<strong>最大整数</strong>的元素个数。</p><p><strong>示例 1:</strong></p><div class="hljs"><pre><code class="hljs angelscript">输入: m = <span class="hljs-number">3</span>, n = <span class="hljs-number">3</span>operations = [[<span class="hljs-number">2</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">3</span>]]输出: <span class="hljs-number">4</span>解释: 初始状态, M = [[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]执行完操作 [<span class="hljs-number">2</span>,<span class="hljs-number">2</span>] 后, M = [[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>], [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]执行完操作 [<span class="hljs-number">3</span>,<span class="hljs-number">3</span>] 后, M = [[<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>], [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]]M 中最大的整数是 <span class="hljs-number">2</span>, 而且 M 中有<span class="hljs-number">4</span>个值为<span class="hljs-number">2</span>的元素。因此返回 <span class="hljs-number">4</span>。</code></pre></div><p><strong>注意:</strong></p><ol><li>m 和 n 的范围是 [1,40000]。</li><li>a 的范围是 [1,m]，b 的范围是 [1,n]。</li><li>操作数目不超过 10000。</li></ol><h1 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h1><p>​第一眼感觉就是穷举，将所有操作都执行一遍，然后遍历一次，找到最大的数字，再遍历一次，用于统计数量。看了下<code>m</code>和<code>n</code>的范围，这必定超时。</p><p>​官方题解说到，最大的数字一定是<code>M[0][0]</code>，因为所有操作都影响到了它。我们可以转换想法，去寻找被操作影响的区域的交集。因为它们都有一个共同的出发点，<code>M[0][0]</code>。如下图：</p><p>​<img src="/img/%60598-%E8%8C%83%E5%9B%B4%E6%B1%82%E5%92%8C%60/26e0a0c8beab6fcc0edfc099a9188179210b6b627f5a77970b672338a99f864a-image.png" srcset="/img/loading.gif" alt="image.png" /></p><p>​上图中颜色较深的就是<code>操作1</code>和<code>操作2</code>的交集，可以看出，交集的长是由<code>操作1</code>的长决定的，类似的，交集的宽也是由<code>操作2</code>的宽决定的，它们分别都是对应操作集的最短的边。</p><p>​可以联想到木桶原理，交集的大小取决于最小的操作集，也就是最短的长和最短的宽。</p><h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1><div class="hljs"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxCount</span><span class="hljs-params">(<span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span>[][] ops)</span> </span>&#123;        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] op : ops) &#123;            m = Math.min(m,op[<span class="hljs-number">0</span>]);            n = Math.min(n,op[<span class="hljs-number">1</span>]);        &#125;        <span class="hljs-keyword">return</span> m*n;    &#125;</code></pre></div>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>LeetCode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>39 组合总和</title>
     <link href="/p/5cce.html"/>
     <url>/p/5cce.html</url>
@@ -69,7 +123,7 @@
     
     <categories>
       
-      <category>uncategorized</category>
+      <category>算法</category>
       
     </categories>
     

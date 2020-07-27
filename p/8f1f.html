@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="AaJal">
   <meta name="keywords" content="">
-  <title>博创4412开发板移植最新的ssh - FouRod</title>
+  <title>598 范围求和 - FouRod</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -153,8 +153,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-03-26 17:34">
-      2020年3月26日 下午
+    <time datetime="2020-07-27 15:38">
+      2020年7月27日 下午
     </time>
   </div>
 
@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      538 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      9
        分钟
     </span>
   
@@ -219,191 +219,75 @@
               </p>
             
             <article class="markdown-body">
-              <p>和缺少资料的开发板斗智斗勇的过程之其三</p>
+              <p>一道数学题</p>
 <a id="more"></a>
-<h4 id="平台"><a class="markdownIt-Anchor" href="#平台"></a> 平台</h4>
+<h1 id="题目"><a class="markdownIt-Anchor" href="#题目"></a> 题目</h1>
+<p>给定一个初始元素全部为 <code>0</code>，大小为 <code>m*n</code> 的矩阵 <code>M</code> 以及在 <code>M</code> 上的一系列更新操作。</p>
+<p>操作用二维数组表示，其中的每个操作用一个含有两个正整数 <code>a</code> 和 <code>b</code> 的数组表示，含义是将所有符合 <code>0 &lt;= i &lt; a</code> 以及 <code>0 &lt;= j &lt; b</code> 的元素 <code>M[i][j]</code> 的值都增加 <code>1</code>。</p>
+<p>在执行给定的一系列操作后，你需要返回矩阵中含有<strong>最大整数</strong>的元素个数。</p>
+<p><strong>示例 1:</strong></p>
+<div class="hljs"><pre><code class="hljs angelscript">输入: 
+m = <span class="hljs-number">3</span>, n = <span class="hljs-number">3</span>
+operations = [[<span class="hljs-number">2</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">3</span>]]
+输出: <span class="hljs-number">4</span>
+解释: 
+初始状态, M = 
+[[<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+ [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>],
+ [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]
+
+执行完操作 [<span class="hljs-number">2</span>,<span class="hljs-number">2</span>] 后, M = 
+[[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+ [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+ [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>]]
+
+执行完操作 [<span class="hljs-number">3</span>,<span class="hljs-number">3</span>] 后, M = 
+[[<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>],
+ [<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>],
+ [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>]]
+
+M 中最大的整数是 <span class="hljs-number">2</span>, 而且 M 中有<span class="hljs-number">4</span>个值为<span class="hljs-number">2</span>的元素。因此返回 <span class="hljs-number">4</span>。</code></pre></div>
+<p><strong>注意:</strong></p>
 <ol>
-<li>UP-Tech 4412</li>
-<li>Kubuntu 64位</li>
+<li>m 和 n 的范围是 [1,40000]。</li>
+<li>a 的范围是 [1,m]，b 的范围是 [1,n]。</li>
+<li>操作数目不超过 10000。</li>
 </ol>
-<h4 id="问题"><a class="markdownIt-Anchor" href="#问题"></a> 问题</h4>
-<ol>
-<li>串口的缺点实在是让人难以忍受</li>
-</ol>
-<h4 id="工具和软件"><a class="markdownIt-Anchor" href="#工具和软件"></a> 工具和软件</h4>
-<ol>
-<li>2009q3的交叉编译工具</li>
-<li><a href="https://www.openssl.org/source/openssl-1.1.1e.tar.gz" target="_blank" rel="noopener">OpenSSL-1.1.1e</a></li>
-<li><a href="ftp://mirror.internode.on.net/pub/OpenBSD/OpenSSH/portable/openssh-8.2p1.tar.gz">OpenSSH-8.2p1</a></li>
-<li><a href="http://www.zlib.net/zlib-1.2.11.tar.gz" target="_blank" rel="noopener">zlib-1.2.11</a></li>
-</ol>
-<h4 id="移植过程"><a class="markdownIt-Anchor" href="#移植过程"></a> 移植过程</h4>
-<h5 id="前期准备"><a class="markdownIt-Anchor" href="#前期准备"></a> 前期准备</h5>
-<p>​	先从他们各自的官网上下下来源代码。为了确保工作目录的干净，我将源码都保存在一个叫做<strong>Source_Code</strong>的目录下，并且事先创建好<strong>Cross</strong>这个目录，用于保存编译好的库和文件。</p>
-<h5 id="编译zlib"><a class="markdownIt-Anchor" href="#编译zlib"></a> 编译zlib</h5>
-<p>​	进入zlib的源代码目录，执行<code>./configure --prefix=/home/gukki/Cross_Code/Cross/zlib</code>进行对<code>install</code>目录的指定以及<code>Makefile</code>的生成。</p>
-<p>​	对<code>Makefile</code>进行修改：</p>
-<blockquote>
-<p>在开头加入<code>CROSS=arm-none-linux-gnueabi-</code></p>
-<p>将<code>CC=gcc</code> 修改为<code>CC=$(CROSS)gcc</code></p>
-<p>将<code>LDSHARED=gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map</code> 修改为</p>
-<p><code>$(CROSS)gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map</code></p>
-<p>将<code>CPP=gcc -E</code> 修改为 <code>CPP=$(CROSS)gcc -E</code></p>
-<p>将<code>AR=ar</code>修改为 <code>AR=$(CROSS)ar</code></p>
-</blockquote>
-<p>如下图所示：</p>
-<p><img src="/../img/image-20200326180038383.png" srcset="/img/loading.gif" alt="image-20200326180038383" /></p>
-<p>保存并退出之后执行<code>make &amp;&amp; make install</code>，这样的话就将编译好的zlib安装到<strong>Cross</strong>目录下的<strong>zlib</strong>。</p>
-<h5 id="编译openssl"><a class="markdownIt-Anchor" href="#编译openssl"></a> 编译openssl</h5>
-<p>​	进入openssl的源代码目录，执行</p>
-<div class="hljs"><pre><code class="hljs shell">./Configure linux-armv4 no-asm shared --prefix=/home/gukki/Cross_Code CROSS_COMPILE=/home/gukki/baidunetdiskdownload/arm-2009q3/bin/arm-none-linux-gnueabi- CC=gcc</code></pre></div>
-<p>其中：</p>
-<p>​	<code>linux-armv4</code>指定了目标平台</p>
-<p>​	<code>no-asm</code>表明不生成汇编代码加速</p>
-<p>​	<code>shared</code> 表明生成动态链接库</p>
-<p>​	<code>prefix</code>指定了安装目录</p>
-<p>​	<code>CROSS_COMPILE</code>使用绝对路径制定了交叉编译器的目录。</p>
-<p>​	<code>CC</code> 指定了使用gcc</p>
-<p>执行<code>make &amp;&amp; make install</code>，将编译好的库安装到了预先指定好的目录了。</p>
-<h5 id="编译openssh"><a class="markdownIt-Anchor" href="#编译openssh"></a> 编译openssh</h5>
-<p>​	进入openssh的源代码目录，执行</p>
-<div class="hljs"><pre><code class="hljs shell">./configure --host=arm-none-linux-gnueabi --with-libs --with-zlib=/home/gukki/Cross_Code/Cross/zlib --with-ssl-dir=/home/gukki/Cross_Code/Cross/openssl1.1.1 --disable-etc-default-login CC=arm-none-linux-gnueabi-gcc AR=arm-none-linux-gnueabi-ar</code></pre></div>
-<p>这个就不用多说了，都是指定之前编译好的库的所在地以及交叉编译器。</p>
-<p>​	执行<code>make</code> ，不要执行<code>make install</code>，否则他会将你生成的程序安装到主机上。</p>
-<p>​	生成结束之后，我是用了网上的一个大佬的脚本，一键打包好所有东西，生成<code>usr.tar.bz2</code>。</p>
-<div class="hljs"><pre><code class="hljs shell"><span class="hljs-meta">#</span><span class="bash">!/bin/bash</span>
-file_a="scp sftp ssh ssh-add ssh-agent ssh-keygen ssh-keyscan" 
-file_b="moduli ssh_config sshd_config" 
-file_c="sftp-server ssh-keysign"
-key="ssh_host_rsa_key ssh_host_dsa_key ssh_host_ecdsa_key ssh_host_ed25519_key" 
- 
-mkdir -p usr/local/bin usr/local/etc usr/libexec 
-mkdir usr/sbin/
- 
-for i in $file_a
-do
-	if [ -f $i ];then
-		cp $i usr/local/bin/
-		echo "cp $i ok" 
-	else
-		echo "error:$i not exist "
-        exit_script  
-	fi
-done
- 
-for i in $file_b
-do
-	if [ -f $i ];then
-		cp $i usr/local/etc/
-		echo "cp $i ok"
-	else
-		echo "error:$i not exist"
-		exit_script
- 	fi
-done
- 
-for i in $file_c
-do
-    if [ -f $i ];then
-        cp $i usr/libexec
-        echo "cp $i ok"
-    else
-        echo "error:$i not exist"
-        exit_script
-    fi
-done
- 
-if [ -f "sshd" ];then
-	cp sshd usr/sbin/
-	echo "cp sshd ok"
-else
-	echo "error:sshd not exist"
-	exit_script
-fi
- 
-<span class="hljs-meta">#</span><span class="bash"> ssh_host_rsa_key</span>
-if [ -f "ssh_host_rsa_key" ];then
-	echo "ssh_host_rsa_key exist"
-	cp ssh_host_rsa_key usr/local/etc/
-	echo "cp ssh_host_rsa_key ok" 
-else
-	ssh-keygen -t rsa -f ssh_host_rsa_key -N ""
-	cp ssh_host_rsa_key usr/local/etc/
-	echo "cp ssh_host_rsa_key ok" 
-fi
- 
-<span class="hljs-meta">#</span><span class="bash"> ssh_host_dsa_key</span>
-if [ -f "ssh_host_dsa_key" ];then
-	echo "ssh_host_dsa_key exist"
-	cp ssh_host_dsa_key usr/local/etc/
-	echo "cp ssh_host_dsa_key ok" 
-else
-	ssh-keygen -t dsa -f ssh_host_dsa_key -N ""
-	cp ssh_host_dsa_key usr/local/etc/
-	echo "cp ssh_host_dsa_key ok" 
-fi
- 
-<span class="hljs-meta">#</span><span class="bash"> ssh_host_ecdsa_key</span>
-if [ -f "ssh_host_ecdsa_key" ];then
-	echo "ssh_host_ecdsa_key exist"
-	cp ssh_host_ecdsa_key usr/local/etc/
-	echo "cp ssh_host_ecdsa_key ok" 
-else
-	ssh-keygen -t ecdsa -f ssh_host_ecdsa_key -N ""
-	cp ssh_host_ecdsa_key usr/local/etc/
-	echo "cp ssh_host_ecdsa_key ok" 
-fi
- 
-<span class="hljs-meta">#</span><span class="bash"> ssh_host_ed25519_key</span>
-if [ -f "ssh_host_ed25519_key" ];then
-	echo "ssh_host_ed25519_key exist"
-	chmod 600 ssh_host_ed25519_key
-	cp ssh_host_ed25519_key usr/local/etc/
-	echo "cp ssh_host_ed25519_key ok" 
-else
-	ssh-keygen -t dsa -f ssh_host_ed25519_key -N ""
-	chmod 600 ssh_host_ed25519_key
-	cp ssh_host_ed25519_key usr/local/etc/
-	echo "cp ssh_host_ed25519_key ok" 
-fi
- 
-tar -cjvf usr.tar.bz2 usr/*
-echo "pack usr to usr.tar.bz2 ok"</code></pre></div>
-<p>以上，在宿主机上的操作结束了。接下来是在开发板上的操作。</p>
-<h5 id="开发板上的操作"><a class="markdownIt-Anchor" href="#开发板上的操作"></a> 开发板上的操作</h5>
-<p>​	将打包好的<code>usr.tar.bz2</code>解压到开发板的根目录，并尝试执行<code>/usr/sbin/sshd</code>来启动ssh服务，可能会出现缺少动态链接库的情况，可以从宿主机上复制过来。其中<code>libcrypto</code>存在于openssl的源代码目录下面，<code>libz</code>存在于zlib的源代码目录中。<code>libcrypto</code>可直接复制到开发板的<code>/lib</code>目录下，而<code>libz</code>则需要建立软连接：<code>ln -s /lib/libz.so.1.2.11 /lib/libz.so.1</code></p>
-<p>​	然后进行如下配置</p>
-<blockquote>
-<p>ssh的配置文件进行修改，以允许<code>root</code>登录：修改 <code>/usr/local/etc/ssh_config</code>，将<code>PermitRootLogin yes</code>前面的注释去掉，如果没有这句，就打进去吧。</p>
-<p>修改<code>/etc/passwd</code>,增加以下三句</p>
-<blockquote>
-<p>root: x :1000:1000:root:/root:/bin/sh<br />
-root : x :0:Linux User,:/home/root:/bin/sh</p>
-<p>sshd: x :74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin</p>
-</blockquote>
-<p>x旁边的两空格要删除掉，我这个编辑器会把他们显示为❌… 这两句话是为了修改<code>root</code>密码的时候出现<code>unknown uid 0</code>的情况</p>
-<p>执行</p>
-<div class="hljs"><pre><code class="hljs shell">mkdir /var/empty/sshd/etc -p
-cd /var/empty/sshd/etc
-ln -s /etc/localtime localtime</code></pre></div>
-<p>防止出现<code>Missing privilege separation directory: /var/empty/</code>这个错误</p>
-</blockquote>
-<p>​	好了，现在你可以对<code>root</code>密码进行修改，并启动ssh了。</p>
-<p>​	为了可以开机启动ssh服务，需要在<code>/etc/init.d/rcS</code>的最后面加上<code>/usr/sbin/sshd &amp;</code></p>
-<p>​	- wan</p>
+<h1 id="理解"><a class="markdownIt-Anchor" href="#理解"></a> 理解</h1>
+<p>​	第一眼感觉就是穷举，将所有操作都执行一遍，然后遍历一次，找到最大的数字，再遍历一次，用于统计数量。看了下<code>m</code>和<code>n</code>的范围，这必定超时。</p>
+<p>​	官方题解说到，最大的数字一定是<code>M[0][0]</code>，因为所有操作都影响到了它。我们可以转换想法，去寻找被操作影响的区域的交集。因为它们都有一个共同的出发点，<code>M[0][0]</code>。如下图：</p>
+<p>​	<img src="/img/%60598-%E8%8C%83%E5%9B%B4%E6%B1%82%E5%92%8C%60/26e0a0c8beab6fcc0edfc099a9188179210b6b627f5a77970b672338a99f864a-image.png" srcset="/img/loading.gif" alt="image.png" /></p>
+<p>​	上图中颜色较深的就是<code>操作1</code>和<code>操作2</code>的交集，可以看出，交集的长是由<code>操作1</code>的长决定的，类似的，交集的宽也是由<code>操作2</code>的宽决定的，它们分别都是对应操作集的最短的边。</p>
+<p>​	可以联想到木桶原理，交集的大小取决于最小的操作集，也就是最短的长和最短的宽。</p>
+<h1 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h1>
+<div class="hljs"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">maxCount</span><span class="hljs-params">(<span class="hljs-keyword">int</span> m, <span class="hljs-keyword">int</span> n, <span class="hljs-keyword">int</span>[][] ops)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] op : ops) &#123;
+            m = Math.min(m,op[<span class="hljs-number">0</span>]);
+            n = Math.min(n,op[<span class="hljs-number">1</span>]);
+        &#125;
+        <span class="hljs-keyword">return</span> m*n;
+    &#125;</code></pre></div>
 
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a>
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%BD%AF%E4%BB%B6%E7%A7%BB%E6%A4%8D/">软件移植</a>
+                      <a class="hover-with-bg" href="/tags/LeetCode/">LeetCode</a>
                     
                   </div>
                 
@@ -416,9 +300,9 @@ ln -s /etc/localtime localtime</code></pre></div>
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/p/cec8f3e6.html">
+                      <a href="/p/2a22.html">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">JWT学习</span>
+                        <span class="hidden-mobile">17.10 主要元素</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -426,8 +310,8 @@ ln -s /etc/localtime localtime</code></pre></div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/p/52f9e600.html">
-                        <span class="hidden-mobile">在Coding和Github上进行双线自动化部署Hexo</span>
+                      <a href="/p/5cce.html">
+                        <span class="hidden-mobile">39 组合总和</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -624,7 +508,7 @@ ln -s /etc/localtime localtime</code></pre></div>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "博创4412开发板移植最新的ssh&nbsp;",
+        "598 范围求和&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 60,
